@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileGame", "MobileGame\MobileGame.csproj", "{09866936-6D9E-4A4C-B2AD-B73606438B36}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Content1", "Content1\Content1.contentproj", "{F2FC55AF-3951-4728-AA8D-F70A3A9301AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09866936-6D9E-4A4C-B2AD-B73606438B36}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{09866936-6D9E-4A4C-B2AD-B73606438B36}.Debug|x86.ActiveCfg = Debug|x86
+		{09866936-6D9E-4A4C-B2AD-B73606438B36}.Debug|x86.Build.0 = Debug|x86
+		{09866936-6D9E-4A4C-B2AD-B73606438B36}.Release|Any CPU.ActiveCfg = Release|x86
+		{09866936-6D9E-4A4C-B2AD-B73606438B36}.Release|x86.ActiveCfg = Release|x86
+		{09866936-6D9E-4A4C-B2AD-B73606438B36}.Release|x86.Build.0 = Release|x86
+		{F2FC55AF-3951-4728-AA8D-F70A3A9301AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FC55AF-3951-4728-AA8D-F70A3A9301AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2FC55AF-3951-4728-AA8D-F70A3A9301AA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FC55AF-3951-4728-AA8D-F70A3A9301AA}.Release|x86.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

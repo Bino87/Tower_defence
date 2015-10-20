@@ -1,7 +1,0 @@
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\bin\x86\Debug\MobileGameServer.exe
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\bin\x86\Debug\MobileGameServer.pdb
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\obj\x86\Debug\MobileGameServer.csprojResolveAssemblyReference.cache
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\obj\x86\Debug\MobileGameServer.exe
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\obj\x86\Debug\MobileGameServer.pdb
-C:\Users\Kamil\Dropbox\skolan\AI\MobileGameServer\MobileGameServer\MobileGameServer\bin\x86\Debug\Content\grass.xnb
