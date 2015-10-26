@@ -1,9 +1,15 @@
-﻿namespace MobileGame.Interfaces
+﻿using MobileGame.GameObjects;
+
+namespace MobileGame.Interfaces
 {
 
-	interface ITower : IGameObject
+	public interface ITower 
 	{
-		void Shoot();
+		void Shoot(Enemy enemy);
+		bool CanShoot(Enemy enemy);
+
+		int Range { get; set; }
+		int RangeSqrt { get; set; }
 	}
 
 }

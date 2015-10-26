@@ -1,12 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MobileGame.Drawable;
+using MobileGame.Interfaces;
+using MobileGame.Managers;
 
 namespace MobileGame.GameObjects
 {
-	class Drawable
+
+	public class Drawable : ICanDraw
 	{
-		readonly Texture2D texture;
-		readonly Vector2 position;
+		readonly Type texture;
+		protected Vector2 position;
 		readonly Vector2 origin;
 		readonly Vector2 scale;
 		readonly SpriteEffects spriteEffect;
@@ -14,9 +19,10 @@ namespace MobileGame.GameObjects
 		readonly Color color;
 		readonly float rotation;
 		readonly float depth;
+		protected bool isAlive;
 
 
-		public Drawable(DrawDescription drawDescription)
+		protected Drawable(DrawDescription drawDescription)
 		{
 			texture =		drawDescription.texture;
 			position =		drawDescription.position;
@@ -27,11 +33,13 @@ namespace MobileGame.GameObjects
 			spriteEffect =	drawDescription.spriteEffect;
 			rotation =		drawDescription.rotation;
 			depth =			drawDescription.depth;
+			isAlive = true;
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
-			sb.Draw(texture, position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
+			if( isAlive )
+				sb.Draw(TextureManager.GetTexture(texture), position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
 		}
 	}
 }

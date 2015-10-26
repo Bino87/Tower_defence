@@ -6,9 +6,9 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public class Tower : GameObject, ITower
+	class Projectile : GameObject, IProjectile
 	{
-		public Tower(DrawDescription drawDescription)
+		public Projectile(DrawDescription drawDescription)
 			: base(drawDescription)
 		{
 		}
@@ -20,20 +20,16 @@ namespace MobileGame.GameObjects
 		}
 
 
-		public void Shoot(IEnemy enemy)
+		public void DealDamage(IEnemy enemy)
 		{
 			throw new NotImplementedException();
 		}
 
 
-		public bool CanShoot(IEnemy enemy)
+		public bool IsColiding(IEnemy enemy)
 		{
 			throw new NotImplementedException();
 		}
-
-
-		public int Range { get; set; }
-		public int RangeSqrt { get; set; }
 	}
 
 }

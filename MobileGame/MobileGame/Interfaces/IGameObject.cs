@@ -2,8 +2,11 @@
 
 namespace MobileGame.Interfaces
 {
-	interface IGameObject
+
+	public interface IGameObject 
 	{
 		void Update(GameTime gt);
+		bool IsAlive { get; }
 	}
+
 }

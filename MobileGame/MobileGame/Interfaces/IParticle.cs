@@ -1,8 +1,7 @@
 ﻿namespace MobileGame.Interfaces
 {
 
-	public interface IEnemy 
+	public interface IParticle 
 	{
-		void Death();
 	}
 }

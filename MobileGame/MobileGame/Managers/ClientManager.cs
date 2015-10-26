@@ -1,25 +1,121 @@
 ﻿using FireSharp;
 using FireSharp.Config;
+using FireSharp.EventStreaming;
 using FireSharp.Interfaces;
+using MobileGame.Enums;
+using MobileGame.Interfaces;
 
 namespace MobileGame.Managers
 {
-	class ClientManager
+
+	public class ClientManager
 	{
-		readonly IFirebaseConfig config;
 		IFirebaseClient client;
 		public ClientManager(string basepath, string authSecret = null)
 		{
-			config = new FirebaseConfig
-			{
-				BasePath = basepath
-			};
+			IFirebaseConfig config = new FirebaseConfig
+			                         {
+				                         BasePath = basepath
+			                         };
 			if( authSecret != null )
 				config.AuthSecret = authSecret;
 			client = new FirebaseClient(config);
+			client.Delete("");
+			Listen();
 		}
 
 
 		public IFirebaseClient Client { get { return client; } set { client = value; } }
+
+
+		async void Listen()
+		{
+			var	esr = await client.OnAsync("", OnValueAdded, OnValueChanged, OnValueRemoved);
+		}
+
+
+		void OnValueRemoved(object sender, ValueRemovedEventArgs args)
+		{
+
+		}
+
+
+		void OnValueAdded(object sender, ValueAddedEventArgs args)
+		{
+
+		}
+
+
+		void OnValueChanged(object sender, ValueChangedEventArgs args)
+		{
+
+			DecodePath(args.Path, args.Data);
+		}
+
+
+		void DecodePath(string path, string data)
+		{
+			path = path.Substring(1);
+			var folders = path.Split('/');
+			int index = 0;
+
+			switch( folders[index] )
+			{
+			case "Game":
+				GetPlayerIndex(folders, index+1, data);
+				break;
+			case "Lobby":
+				break;
+
+			default:
+
+				break;
+			}
+		}
+
+
+		void GetPlayerIndex(string[] folders, int index, string data)
+		{
+
+			switch( folders[index] )
+			{
+			default: break;
+			case "0":
+				GetPlayersVariable(folders, index+1, data, Manager.Players[0]);
+				break;
+			case "1":
+				GetPlayersVariable(folders, index+1, data, Manager.Players[1]);
+				break;
+			case "2":
+				GetPlayersVariable(folders, index+1, data, Manager.Players[2]); 
+				break;
+			case "3":
+				GetPlayersVariable(folders, index+1, data, Manager.Players[3]);
+				break;
+			}
+		}
+
+
+		void GetPlayersVariable(string[] folders, int index, string data, IPlayer player)
+		{
+			switch( folders[index] )
+			{
+			default: break;
+
+			case "Gold":
+				player.Gold = int.Parse(data);
+				break;
+			case "Kills": break;
+			case "LivesLeft": break;
+			case "Position": break;
+			case "Score": break;
+			case "Status":
+				int enumId = int.Parse(data);
+				player.Status = (PlayerStatus) enumId;
+				break;
+			}
+		}
+
+
 	}
 }

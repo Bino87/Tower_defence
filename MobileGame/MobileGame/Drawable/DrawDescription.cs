@@ -1,11 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MobileGame.GameObjects
+namespace MobileGame.Drawable
 {
-	sealed class DrawDescription
+
+	public sealed class DrawDescription
 	{
-		public Texture2D texture;
+		public Type texture;
 		public Vector2 position;
 		public Vector2 origin;
 		public Vector2 scale;
@@ -14,7 +16,7 @@ namespace MobileGame.GameObjects
 		public Color color;
 		public float rotation;
 		public float depth;
-		DrawDescription(Texture2D texture, Vector2 position, Rectangle? boundingBox = null, Color? color = null,
+		DrawDescription(Type texture, Vector2 position, Rectangle? boundingBox = null, Color? color = null,
 						float rotation = 0.0f, Vector2 origin = default(Vector2), Vector2? scale = null,
 						SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
 		{
@@ -45,7 +47,7 @@ namespace MobileGame.GameObjects
 		/// <param name="spriteEffect"></param>
 		/// <param name="depth"></param>
 		/// <returns></returns>
-		public static DrawDescription CreateDrawDescriptin(Texture2D texture, Vector2 position, Rectangle? boundingBox = null,
+		public static DrawDescription CreateDrawDescriptin(Type texture, Vector2 position, Rectangle? boundingBox = null,
 														   Color? color = null,
 														   float rotation = 0.0f, Vector2 origin = default(Vector2),
 														   Vector2? scale = null,
