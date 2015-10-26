@@ -46,18 +46,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Drawable\DrawDescription.cs" />
+    <Compile Include="Drawable\RenderDesc.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="EventArgs\BuildTowerEventArgs.cs" />
     <Compile Include="EventArgs\TakeDamageEventArgs.cs" />
-    <Compile Include="GameObjects\Drawable.cs" />
+    <Compile Include="GameObjects\Renderable.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Particle.cs" />
     <Compile Include="GameObjects\Projectile.cs" />
     <Compile Include="GameObjects\Tower.cs" />
-    <Compile Include="Interfaces\ICanDraw.cs" />
+    <Compile Include="Interfaces\IRenderable.cs" />
     <Compile Include="Interfaces\IEnemy.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
     <Compile Include="Interfaces\IParticle.cs" />
@@ -120,7 +120,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\sdfsf.png">
+    <Content Include="Content\Player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

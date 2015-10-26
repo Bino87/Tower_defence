@@ -11,8 +11,8 @@ namespace MobileGame.GameObjects
 		readonly Vector2 direction;
 
 
-		protected Particle(float lifeTime, float speed, Vector2 direction, DrawDescription drawDescription)
-			: base(drawDescription)
+		protected Particle(float lifeTime, float speed, Vector2 direction, RenderDesc renderDesc)
+			: base(renderDesc)
 		{
 			this.lifeTime = lifeTime;
 			this.speed = speed;

@@ -11,15 +11,15 @@ namespace MobileGame.GameObjects
 		float range;
 		readonly float rangeSqrt;
 		float dmg;
-		float fireRate;
+		readonly float timeBetweenShoots;
 		float timeSinceLastShot;
-		public Tower(float range, float dmg,float fireRate, DrawDescription drawDescription)
-			: base(drawDescription)
+		public Tower(float range, float dmg,float timeBetweenShoots, RenderDesc renderDesc)
+			: base(renderDesc)
 		{
 			this.range = range;
-			this.rangeSqrt = range * range;
+			rangeSqrt = range * range;
 			this.dmg = dmg;
-			this.fireRate = fireRate;
+			this.timeBetweenShoots = timeBetweenShoots;
 			timeSinceLastShot = 0.0f;
 		}
 
@@ -36,7 +36,7 @@ namespace MobileGame.GameObjects
 		public void Shoot(Enemy enemy, List <Projectile> projectiles )
 		{
 			//projectiles.Add(new Projectile(adad));
-			timeSinceLastShot = fireRate;
+			timeSinceLastShot = timeBetweenShoots;
 		}
 
 
@@ -44,7 +44,7 @@ namespace MobileGame.GameObjects
 		{
 			if(timeSinceLastShot <= 0.0f)
 				return false;
-			return !(Vector2.DistanceSquared(position, enemy.Position) <= rangeSqrt) && false;
+			return (Vector2.DistanceSquared(position, enemy.Position) <= rangeSqrt);
 		}
 	}
 

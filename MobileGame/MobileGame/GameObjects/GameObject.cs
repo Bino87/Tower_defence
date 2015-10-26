@@ -5,16 +5,15 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public abstract class GameObject : Drawable, IGameObject
+	public abstract class GameObject : Renderable, IGameObject
 	{
-		protected GameObject(DrawDescription drawDescription)
-			: base(drawDescription)
+		protected GameObject(RenderDesc renderDesc)
+			: base(renderDesc)
 		{
 			
 		}
 
 		public abstract void Update(GameTime gt);
 		public bool IsAlive { get { return isAlive; } }
-		public Vector2 Position { get { return position; } }
 	}
 }

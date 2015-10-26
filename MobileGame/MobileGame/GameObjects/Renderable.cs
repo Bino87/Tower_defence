@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Drawable;
 using MobileGame.Interfaces;
@@ -8,31 +7,33 @@ using MobileGame.Managers;
 namespace MobileGame.GameObjects
 {
 
-	public class Drawable : ICanDraw
+	public class Renderable: IRenderable
 	{
 		readonly int textureIndex;
 		protected Vector2 position;
 		readonly Vector2 origin;
 		readonly Vector2 scale;
 		readonly SpriteEffects spriteEffect;
-		readonly Rectangle? boundingBox;
+		readonly Rectangle boundingBox;
 		readonly Color color;
 		readonly float rotation;
 		readonly float depth;
 		protected bool isAlive;
 
+		public Vector2 Position { get { return position; } set { position = value; } }
 
-		protected Drawable(DrawDescription drawDescription)
+
+		protected Renderable(RenderDesc renderDesc)
 		{
-			textureIndex =	drawDescription.textureIndex;
-			position =		drawDescription.position;
-			boundingBox =	drawDescription.boundingBox;
-			origin =		drawDescription.origin;
-			color =			drawDescription.color;
-			scale =			drawDescription.scale;
-			spriteEffect =	drawDescription.spriteEffect;
-			rotation =		drawDescription.rotation;
-			depth =			drawDescription.depth;
+			textureIndex =	renderDesc.textureIndex;
+			position =		renderDesc.position;
+			boundingBox =	renderDesc.boundingBox;
+			origin =		renderDesc.origin;
+			color =			renderDesc.color;
+			scale =			renderDesc.scale;
+			spriteEffect =	renderDesc.spriteEffect;
+			rotation =		renderDesc.rotation;
+			depth =			renderDesc.depth;
 			isAlive = true;
 		}
 

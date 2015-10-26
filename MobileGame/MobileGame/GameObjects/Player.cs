@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using MobileGame.Drawable;
-using MobileGame.Interfaces;
 using MobileGame.Enums;
 using MobileGame.EventArgs;
+using MobileGame.Interfaces;
 using MobileGame.Managers;
-using ServiceStack.Text;
 
 namespace MobileGame.GameObjects
 {
@@ -15,9 +15,6 @@ namespace MobileGame.GameObjects
 	{
 		public event EventHandler <BuildTowerEventArgs> BuildTowerEvent;
 		public event EventHandler <TakeDamageEventArgs> TakeDamageEvent;
-
-		object key = new object();
-
 		List <Enemy> enemies;
 		List <Tower> towers;
 		List <Projectile> projectiles;
@@ -28,7 +25,7 @@ namespace MobileGame.GameObjects
 		int gold;
 		int livesLeft;
 		int score;
-		public Vector2 Position { get { return position; } set { position = value; } }
+
 		public PlayerStatus Status
 		{
 			get
@@ -49,8 +46,8 @@ namespace MobileGame.GameObjects
 		public int Score { get { return score; } set { score = value; } }
 		public int Kills { get { return kills; } set { kills = value; } }
 
-		protected internal Player(int index, ClientManager cm, DrawDescription drawDescription)
-			: base(drawDescription)
+		protected internal Player(int index, ClientManager cm, RenderDesc renderDesc)
+			: base(renderDesc)
 		{
 			this.cm = cm;
 			towers = new List<Tower>();
@@ -109,7 +106,6 @@ namespace MobileGame.GameObjects
 		public void CreateFirebaseSlot()
 		{
 			cm.Client.SetAsync(myPath, this);
-
 		}
 
 		public override void Update(GameTime gt)
@@ -148,10 +144,8 @@ namespace MobileGame.GameObjects
 
 		void TowerShoot()
 		{
-			foreach( var tower in towers )
+			foreach(var tower in towers.Where(tower => tower.IsAlive))
 			{
-				if( !tower.IsAlive )
-					continue;
 				foreach( var enemy in enemies )
 				{
 					if( !enemy.IsAlive )
@@ -166,6 +160,7 @@ namespace MobileGame.GameObjects
 			}
 		}
 
+
 		void CleanUpLists()
 		{
 			towers = towers.FindAll(t => t.IsAlive);
@@ -177,7 +172,6 @@ namespace MobileGame.GameObjects
 		{
 			foreach( var enemy in enemies )
 				enemy.Update(gt);
-
 			foreach( var tower in towers )
 				tower.Update(gt);
 			foreach( var projectile in projectiles )

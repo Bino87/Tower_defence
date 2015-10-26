@@ -8,7 +8,6 @@ namespace MobileGame.Interfaces
 		void Update(GameTime gt);
 		bool IsAlive { get; }
 
-		Vector2 Position { get; }
 	}
 
 }

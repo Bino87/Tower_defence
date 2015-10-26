@@ -3,7 +3,7 @@
 namespace MobileGame.Interfaces
 {
 
-	public interface ICanDraw
+	public interface IRenderable
 	{
 		void Draw(SpriteBatch sb);
 	}

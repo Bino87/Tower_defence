@@ -50,7 +50,6 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debu
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.pdb
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csproj.App.config
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csprojResolveAssemblyReference.cache
-C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\sdfsf.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.exe
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.pdb
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\FireSharp.dll
@@ -92,3 +91,4 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\SharpDX.XInput.xml
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Player.png

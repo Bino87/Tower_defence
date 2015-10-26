@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MobileGame.Managers;
@@ -37,16 +36,7 @@ namespace MobileGame
 		{
 			m = new Manager();
 
-			var files = Directory.GetFiles(Content.RootDirectory);
-
-			for(var index = 0; index < files.Length; index++)
-			{
-				var extension = Path.GetExtension(files[index]);
-				if(extension != null && !extension.Equals(".png"))
-					continue;
-				var texture = Content.Load <Texture2D>(Path.GetFileName(files[index]));
-				TextureManager.Add(index, texture);
-			}
+			TextureManager.LoadTextures(Content);
 			IsMouseVisible = true;
 
 

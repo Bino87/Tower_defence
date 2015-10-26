@@ -8,8 +8,8 @@ namespace MobileGame.GameObjects
 
 	public class Enemy : GameObject, IEnemy
 	{
-		public Enemy(DrawDescription drawDescription)
-			: base(drawDescription)
+		public Enemy(RenderDesc renderDesc)
+			: base(renderDesc)
 		{
 		}
 

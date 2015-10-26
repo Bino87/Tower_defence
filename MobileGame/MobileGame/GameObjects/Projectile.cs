@@ -8,8 +8,8 @@ namespace MobileGame.GameObjects
 
 	public class Projectile : GameObject, IProjectile
 	{
-		public Projectile(DrawDescription drawDescription)
-			: base(drawDescription)
+		public Projectile(RenderDesc renderDesc)
+			: base(renderDesc)
 		{
 		}
 

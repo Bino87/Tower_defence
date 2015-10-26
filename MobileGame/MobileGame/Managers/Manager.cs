@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using FireSharp.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MobileGame.Drawable;
 using MobileGame.GameObjects;
-using ServiceStack.Text;
-using ServiceStack.Text.Reflection;
 
 namespace MobileGame.Managers
 {
@@ -30,7 +26,7 @@ namespace MobileGame.Managers
 
 			for( int i = 0; i < 4; i++ )
 			{
-				players.Add(new Player(i, cm, DrawDescription.CreateDrawDescriptin(0, Vector2.One)));
+				players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(0, Vector2.One)));
 			}
 
 			cm.Client.UpdateAsync("Game", players);
