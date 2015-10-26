@@ -61,9 +61,7 @@ namespace MobileGame.GameObjects
 			CreateFirebaseSlot();
 			TakeDamageEvent += OnTakeDamage;
 			BuildTowerEvent += OnBuildTower;
-			var a = this.SerializeAndFormat();
 
-			TakeDamage(1);
 		}
 
 
@@ -117,7 +115,6 @@ namespace MobileGame.GameObjects
 			UpdateLists(gt);
 
 			TowerShoot();
-			TakeDamage(2);
 
 			ProjectileCollide();
 
@@ -157,8 +154,10 @@ namespace MobileGame.GameObjects
 				{
 					if( !enemy.IsAlive )
 						continue;
-					if( !tower.IsInRange(enemy) )
+
+					if( !tower.CanShoot(enemy) )
 						continue;
+
 					tower.Shoot(enemy);
 					break;
 				}

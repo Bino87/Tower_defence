@@ -1,15 +1,14 @@
-﻿using MobileGame.GameObjects;
+﻿using System.Collections.Generic;
+using MobileGame.GameObjects;
 
 namespace MobileGame.Interfaces
 {
 
-	public interface ITower 
+	public interface ITower
 	{
-		void Shoot(Enemy enemy);
+		void Shoot(Enemy enemy, List <Projectile> projectiles);
 		bool CanShoot(Enemy enemy);
 
-		int Range { get; set; }
-		int RangeSqrt { get; set; }
 	}
 
 }

@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Drawable;
-using MobileGame.Enums;
 using MobileGame.GameObjects;
-using MobileGame.Interfaces;
 
 namespace MobileGame.Managers
 {
@@ -21,10 +19,10 @@ namespace MobileGame.Managers
 			cm = new ClientManager("https://blistering-heat-6102.firebaseio.com/");
 			players = new List<Player>();
 
-
+			
 			for( int i = 0; i < 4; i++ )
 			{
-				players.Add(item : new Player(i, cm, DrawDescription.CreateDrawDescriptin(null, Vector2.One)));
+				players.Add(new Player(i, cm, DrawDescription.CreateDrawDescriptin(null, Vector2.One)));
 			}
 
 			cm.Client.UpdateAsync("Game", players);

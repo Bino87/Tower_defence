@@ -15,5 +15,6 @@ namespace MobileGame.GameObjects
 
 		public abstract void Update(GameTime gt);
 		public bool IsAlive { get { return isAlive; } }
+		public Vector2 Position { get { return position; } }
 	}
 }

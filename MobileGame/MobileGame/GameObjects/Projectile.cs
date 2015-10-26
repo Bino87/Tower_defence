@@ -6,7 +6,7 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	class Projectile : GameObject, IProjectile
+	public class Projectile : GameObject, IProjectile
 	{
 		public Projectile(DrawDescription drawDescription)
 			: base(drawDescription)

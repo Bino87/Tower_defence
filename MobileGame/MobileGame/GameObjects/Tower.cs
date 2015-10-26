@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MobileGame.Drawable;
 using MobileGame.Interfaces;
@@ -6,34 +6,46 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public class Tower : GameObject, ITower
+	public class Tower: GameObject, ITower
 	{
-		public Tower(DrawDescription drawDescription)
+		float range;
+		readonly float rangeSqrt;
+		float dmg;
+		float fireRate;
+		float timeSinceLastShot;
+		public Tower(float range, float dmg,float fireRate, DrawDescription drawDescription)
 			: base(drawDescription)
 		{
+			this.range = range;
+			this.rangeSqrt = range * range;
+			this.dmg = dmg;
+			this.fireRate = fireRate;
+			timeSinceLastShot = 0.0f;
 		}
 
 
 		public override void Update(GameTime gt)
 		{
-			throw new NotImplementedException();
+			if(timeSinceLastShot > 0)
+			{
+				timeSinceLastShot -= (float)gt.ElapsedGameTime.TotalSeconds;
+			}
 		}
 
 
-		public void Shoot(IEnemy enemy)
+		public void Shoot(Enemy enemy, List <Projectile> projectiles )
 		{
-			throw new NotImplementedException();
+			//projectiles.Add(new Projectile(adad));
+			timeSinceLastShot = fireRate;
 		}
 
 
-		public bool CanShoot(IEnemy enemy)
+		public bool CanShoot(Enemy enemy)
 		{
-			throw new NotImplementedException();
+			if(timeSinceLastShot <= 0.0f)
+				return false;
+			return !(Vector2.DistanceSquared(position, enemy.Position) <= rangeSqrt) && false;
 		}
-
-
-		public int Range { get; set; }
-		public int RangeSqrt { get; set; }
 	}
 
 }
