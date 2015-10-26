@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using FireSharp;
-using FireSharp.Config;
-using FireSharp.EventStreaming;
-using FireSharp.Response;
+﻿using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MobileGame.Drawable;
-using MobileGame.GameObjects;
 using MobileGame.Managers;
 
 namespace MobileGame
@@ -20,8 +13,6 @@ namespace MobileGame
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-		Texture2D tex;
-
 		Manager m;
 
 
@@ -44,10 +35,20 @@ namespace MobileGame
 		/// </summary>
 		protected override void Initialize()
 		{
-			tex = Content.Load<Texture2D>("sdfsf");
 			m = new Manager();
 
-			//tex = LoadTexture2D("sdfsf.png");
+			var files = Directory.GetFiles(Content.RootDirectory);
+
+			for(var index = 0; index < files.Length; index++)
+			{
+				var extension = Path.GetExtension(files[index]);
+				if(extension != null && !extension.Equals(".png"))
+					continue;
+				var texture = Content.Load <Texture2D>(Path.GetFileName(files[index]));
+				TextureManager.Add(index, texture);
+			}
+			IsMouseVisible = true;
+
 
 			base.Initialize();
 		}

@@ -2,8 +2,9 @@
 using FireSharp.Config;
 using FireSharp.EventStreaming;
 using FireSharp.Interfaces;
+using Microsoft.Xna.Framework;
 using MobileGame.Enums;
-using MobileGame.Interfaces;
+using MobileGame.GameObjects;
 
 namespace MobileGame.Managers
 {
@@ -14,9 +15,9 @@ namespace MobileGame.Managers
 		public ClientManager(string basepath, string authSecret = null)
 		{
 			IFirebaseConfig config = new FirebaseConfig
-			                         {
-				                         BasePath = basepath
-			                         };
+									 {
+										 BasePath = basepath
+									 };
 			if( authSecret != null )
 				config.AuthSecret = authSecret;
 			client = new FirebaseClient(config);
@@ -87,7 +88,7 @@ namespace MobileGame.Managers
 				GetPlayersVariable(folders, index+1, data, Manager.Players[1]);
 				break;
 			case "2":
-				GetPlayersVariable(folders, index+1, data, Manager.Players[2]); 
+				GetPlayersVariable(folders, index+1, data, Manager.Players[2]);
 				break;
 			case "3":
 				GetPlayersVariable(folders, index+1, data, Manager.Players[3]);
@@ -96,7 +97,7 @@ namespace MobileGame.Managers
 		}
 
 
-		void GetPlayersVariable(string[] folders, int index, string data, IPlayer player)
+		void GetPlayersVariable(string[] folders, int index, string data, Player player)
 		{
 			switch( folders[index] )
 			{
@@ -107,11 +108,22 @@ namespace MobileGame.Managers
 				break;
 			case "Kills": break;
 			case "LivesLeft": break;
-			case "Position": break;
+			case "Position":
+
+				var split = data.Split(',');
+				var tempVector = new Vector2
+				{
+					X = float.Parse(split[0]),
+					Y = float.Parse(split[1])
+				};
+				player.Position = tempVector;
+
+
+				break;
 			case "Score": break;
 			case "Status":
 				int enumId = int.Parse(data);
-				player.Status = (PlayerStatus) enumId;
+				player.Status = (PlayerStatus)enumId;
 				break;
 			}
 		}

@@ -16,6 +16,8 @@ namespace MobileGame.GameObjects
 		public event EventHandler <BuildTowerEventArgs> BuildTowerEvent;
 		public event EventHandler <TakeDamageEventArgs> TakeDamageEvent;
 
+		object key = new object();
+
 		List <Enemy> enemies;
 		List <Tower> towers;
 		List <Projectile> projectiles;
@@ -74,7 +76,7 @@ namespace MobileGame.GameObjects
 		void OnTakeDamage(object sender, TakeDamageEventArgs args)
 		{
 			livesLeft -= args.DamageTaken;
-			Gold ++;
+			Gold++;
 			if( livesLeft <= 0 )
 			{
 				isAlive = false;
@@ -91,7 +93,7 @@ namespace MobileGame.GameObjects
 				return;
 
 			//Create logic allowing building towers
-			
+
 
 
 			if( BuildTowerEvent != null )
@@ -158,7 +160,7 @@ namespace MobileGame.GameObjects
 					if( !tower.CanShoot(enemy) )
 						continue;
 
-					tower.Shoot(enemy);
+					tower.Shoot(enemy, projectiles);
 					break;
 				}
 			}

@@ -10,7 +10,7 @@ namespace MobileGame.GameObjects
 
 	public class Drawable : ICanDraw
 	{
-		readonly Type texture;
+		readonly int textureIndex;
 		protected Vector2 position;
 		readonly Vector2 origin;
 		readonly Vector2 scale;
@@ -24,7 +24,7 @@ namespace MobileGame.GameObjects
 
 		protected Drawable(DrawDescription drawDescription)
 		{
-			texture =		drawDescription.texture;
+			textureIndex =	drawDescription.textureIndex;
 			position =		drawDescription.position;
 			boundingBox =	drawDescription.boundingBox;
 			origin =		drawDescription.origin;
@@ -39,7 +39,7 @@ namespace MobileGame.GameObjects
 		public void Draw(SpriteBatch sb)
 		{
 			if( isAlive )
-				sb.Draw(TextureManager.GetTexture(texture), position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
+				sb.Draw(TextureManager.GetTexture(textureIndex), position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
 		}
 	}
 }

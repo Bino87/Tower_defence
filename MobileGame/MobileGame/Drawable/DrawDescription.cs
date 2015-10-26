@@ -7,7 +7,7 @@ namespace MobileGame.Drawable
 
 	public sealed class DrawDescription
 	{
-		public Type texture;
+		public int textureIndex;
 		public Vector2 position;
 		public Vector2 origin;
 		public Vector2 scale;
@@ -16,13 +16,13 @@ namespace MobileGame.Drawable
 		public Color color;
 		public float rotation;
 		public float depth;
-		DrawDescription(Type texture, Vector2 position, Rectangle? boundingBox = null, Color? color = null,
+		DrawDescription(int textureIndex, Vector2 position, Rectangle? boundingBox = null, Color? color = null,
 						float rotation = 0.0f, Vector2 origin = default(Vector2), Vector2? scale = null,
 						SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
 		{
-			this.texture = texture;
+			this.textureIndex = textureIndex;
 			this.position = position;
-			this.boundingBox = boundingBox;
+			this.boundingBox = boundingBox ?? new Rectangle(0,0,30,30);
 			this.origin = origin;
 			this.color = color ?? Color.White;
 			this.scale = scale ?? Vector2.One;
@@ -35,9 +35,9 @@ namespace MobileGame.Drawable
 
 
 		/// <summary>
-		/// Creates draw description container for the Drawable object, texture and position must be asigned! others can be asigned by writing the 'parameter name': and desired value. ex: color: Color.Black
+		/// Creates draw description container for the Drawable object, textureIndex and position must be asigned! others can be asigned by writing the 'parameter name': and desired value. ex: color: Color.Black
 		/// </summary>
-		/// <param name="texture"></param>
+		/// <param name="textureIndex"></param>
 		/// <param name="position"></param>
 		/// <param name="boundingBox"></param>
 		/// <param name="color"></param>
@@ -47,13 +47,13 @@ namespace MobileGame.Drawable
 		/// <param name="spriteEffect"></param>
 		/// <param name="depth"></param>
 		/// <returns></returns>
-		public static DrawDescription CreateDrawDescriptin(Type texture, Vector2 position, Rectangle? boundingBox = null,
+		public static DrawDescription CreateDrawDescriptin(int textureIndex, Vector2 position, Rectangle? boundingBox = null,
 														   Color? color = null,
 														   float rotation = 0.0f, Vector2 origin = default(Vector2),
 														   Vector2? scale = null,
 														   SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
 		{
-			return new DrawDescription(texture, position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
+			return new DrawDescription(textureIndex, position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
 		}
 	}
 }
