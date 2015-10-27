@@ -25,19 +25,19 @@ namespace MobileGame.GameObjects
 
 		protected Renderable(RenderDesc renderDesc)
 		{
-			textureIndex =	renderDesc.textureIndex;
-			position =		renderDesc.position;
-			boundingBox =	renderDesc.boundingBox;
-			origin =		renderDesc.origin;
-			color =			renderDesc.color;
-			scale =			renderDesc.scale;
-			spriteEffect =	renderDesc.spriteEffect;
-			rotation =		renderDesc.rotation;
-			depth =			renderDesc.depth;
+			textureIndex =	renderDesc.TextureIndex;
+			position =		renderDesc.Position;
+			boundingBox =	renderDesc.BoundingBox;
+			origin =		renderDesc.Origin;
+			color =			renderDesc.Color;
+			scale =			renderDesc.Scale;
+			spriteEffect =	renderDesc.SpriteEffect;
+			rotation =		renderDesc.Rotation;
+			depth =			renderDesc.Depth;
 			isAlive = true;
 		}
 
-		public virtual  void Draw(SpriteBatch sb)
+		public virtual void Draw(SpriteBatch sb)
 		{
 			if( isAlive )
 				sb.Draw(TextureManager.GetTexture(textureIndex), position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);

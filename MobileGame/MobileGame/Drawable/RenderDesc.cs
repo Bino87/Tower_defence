@@ -6,15 +6,15 @@ namespace MobileGame.Drawable
 
 	public sealed class RenderDesc
 	{
-		public int textureIndex;
-		public Vector2 position;
-		public Vector2 origin;
-		public Vector2 scale;
-		public SpriteEffects spriteEffect;
-		public Rectangle boundingBox;
-		public Color color;
-		public float rotation;
-		public float depth;
+		int textureIndex;
+		Vector2 position;
+		Vector2 origin;
+		Vector2 scale;
+		SpriteEffects spriteEffect;
+		Rectangle boundingBox;
+		Color color;
+		float rotation;
+		float depth;
 
 		
 		
@@ -35,6 +35,15 @@ namespace MobileGame.Drawable
 		}
 
 
+		public int TextureIndex { get { return textureIndex; } set { textureIndex = value; } }
+		public Vector2 Position { get { return position; } set { position = value; } }
+		public float Depth { get { return depth; } set { depth = value; } }
+		public float Rotation { get { return rotation; } set { rotation = value; } }
+		public Color Color { get { return color; } set { color = value; } }
+		public Rectangle BoundingBox { get { return boundingBox; } set { boundingBox = value; } }
+		public SpriteEffects SpriteEffect { get { return spriteEffect; } set { spriteEffect = value; } }
+		public Vector2 Scale { get { return scale; } set { scale = value; } }
+		public Vector2 Origin { get { return origin; } set { origin = value; } }
 
 
 		/// <summary>
