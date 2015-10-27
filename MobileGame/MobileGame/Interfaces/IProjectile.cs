@@ -1,8 +1,10 @@
-﻿namespace MobileGame.Interfaces
+﻿using MobileGame.GameObjects;
+
+namespace MobileGame.Interfaces
 {
 	interface IProjectile 
 	{
-		void DealDamage(IEnemy enemy);
-		bool IsColiding(IEnemy enemy);
+		void DealDamage(Enemy enemy);
+		bool IsColiding(Enemy enemy);
 	}
 }

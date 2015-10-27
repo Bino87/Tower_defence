@@ -7,7 +7,8 @@ namespace MobileGame.Interfaces
 	public interface ITower
 	{
 		void Shoot(Enemy enemy, List <Projectile> projectiles);
-		bool CanShoot(Enemy enemy);
+		bool IsInRange(Enemy enemy);
+		bool CanShoot();
 
 	}
 

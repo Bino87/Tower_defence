@@ -6,29 +6,40 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public class Projectile : GameObject, IProjectile
+	public class Projectile : Moveable, IProjectile
 	{
-		public Projectile(RenderDesc renderDesc)
-			: base(renderDesc)
+		float speed;
+		float lifeTime;
+		float radiusSqrt;
+		readonly int dmg;
+		Vector2 direction;
+		public Projectile(float  lifeTime, float radius, int dmg, Vector2 destiantion,float speed,  RenderDesc renderDesc)
+			: base(destiantion, speed, renderDesc)
 		{
+			this.dmg = dmg;
+			radiusSqrt = radius * radius;
+			this.lifeTime = lifeTime;
 		}
 
 
 		public override void Update(GameTime gt)
 		{
-			throw new NotImplementedException();
+			base.Update(gt);
+			lifeTime -= (float) gt.ElapsedGameTime.TotalSeconds;
+			if(lifeTime <= 0.0f)
+				isAlive = false;
 		}
 
 
-		public void DealDamage(IEnemy enemy)
+		public void DealDamage(Enemy enemy)
 		{
-			throw new NotImplementedException();
+			enemy.HealthPoints -= dmg;
 		}
 
 
-		public bool IsColiding(IEnemy enemy)
+		public bool IsColiding(Enemy enemy)
 		{
-			throw new NotImplementedException();
+			return Vector2.DistanceSquared(position, enemy.Position) < radiusSqrt + enemy.RadiusSqrt;
 		}
 	}
 

@@ -24,9 +24,9 @@ namespace MobileGame.Managers
 			players = new List<Player>();
 
 
-			for( int i = 0; i < 4; i++ )
+			for( int i = 0; i < 1; i++ )
 			{
-				players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(0, Vector2.One)));
+				players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One)));
 			}
 
 			cm.Client.UpdateAsync("Game", players);

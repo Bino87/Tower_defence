@@ -8,7 +8,6 @@ namespace MobileGame.GameObjects
 
 	public class Tower: GameObject, ITower
 	{
-		float range;
 		readonly float rangeSqrt;
 		float dmg;
 		readonly float timeBetweenShoots;
@@ -16,7 +15,6 @@ namespace MobileGame.GameObjects
 		public Tower(float range, float dmg,float timeBetweenShoots, RenderDesc renderDesc)
 			: base(renderDesc)
 		{
-			this.range = range;
 			rangeSqrt = range * range;
 			this.dmg = dmg;
 			this.timeBetweenShoots = timeBetweenShoots;
@@ -32,20 +30,20 @@ namespace MobileGame.GameObjects
 			}
 		}
 
-
 		public void Shoot(Enemy enemy, List <Projectile> projectiles )
 		{
 			//projectiles.Add(new Projectile(adad));
 			timeSinceLastShot = timeBetweenShoots;
 		}
 
-
-		public bool CanShoot(Enemy enemy)
+		public bool IsInRange(Enemy enemy)
 		{
-			if(timeSinceLastShot <= 0.0f)
-				return false;
 			return (Vector2.DistanceSquared(position, enemy.Position) <= rangeSqrt);
 		}
-	}
 
+		public bool CanShoot()
+		{
+			return timeSinceLastShot <= 0.0f;
+		}
+	}
 }

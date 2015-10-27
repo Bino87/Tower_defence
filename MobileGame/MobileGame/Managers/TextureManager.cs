@@ -9,7 +9,7 @@ namespace MobileGame.Managers
 	static class TextureManager
 	{
 		static Texture2D[] textures = new Texture2D[0];
-		static Dictionary <Type,int> textureIndexes = new Dictionary<Type, int>();
+		static readonly Dictionary <Type,int> textureIndexes = new Dictionary<Type, int>();
 
 
 		public static void LoadTextures(ContentManager content)
@@ -25,7 +25,8 @@ namespace MobileGame.Managers
 				var texture = content.Load<Texture2D>(fileName);
 				Add(index, texture);
 				var type = Type.GetType(string.Format("MobileGame.GameObjects.{0}", fileName));
-				textureIndexes.Add(type, index);
+				if(type != null && !textureIndexes.ContainsKey(type))
+					textureIndexes.Add(type, index);
 			}
 		}
 

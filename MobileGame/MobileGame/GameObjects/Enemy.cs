@@ -6,17 +6,17 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public class Enemy : GameObject, IEnemy
+	public class Enemy: Moveable, IEnemy
 	{
-		public Enemy(RenderDesc renderDesc)
-			: base(renderDesc)
-		{
-		}
+		int healthPoints;
+		float radiusSqrt;
+		public int HealthPoints { get { return healthPoints; } set { healthPoints = value; } }
+		public float RadiusSqrt { get { return radiusSqrt; } }
 
 
-		public override void Update(GameTime gt)
+		public Enemy(Vector2 destination, float speed, RenderDesc renderDesc)
+			: base(destination, speed ,renderDesc)
 		{
-			throw new NotImplementedException();
 		}
 
 

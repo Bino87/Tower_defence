@@ -1,4 +1,5 @@
-﻿using MobileGame.Enums;
+﻿using Microsoft.Xna.Framework.Graphics;
+using MobileGame.Enums;
 using MobileGame.GameObjects;
 
 namespace MobileGame.Interfaces
@@ -10,6 +11,7 @@ namespace MobileGame.Interfaces
 		void TakeDamage(int dmgTaken);
 		void BuildTower(PlayerStatus pStatus, Tower tower);
 		void SpawnEnemy(Enemy enemy);
+		void Draw(SpriteBatch sb);
 		int Gold { get; set; }
 		PlayerStatus Status { get; set; }
 		int LivesLeft { get; set; }

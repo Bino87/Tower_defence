@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Drawable;
 using MobileGame.Enums;
 using MobileGame.EventArgs;
@@ -60,6 +61,7 @@ namespace MobileGame.GameObjects
 			CreateFirebaseSlot();
 			TakeDamageEvent += OnTakeDamage;
 			BuildTowerEvent += OnBuildTower;
+			projectiles.Add(new Projectile(10, 10, 10, new Vector2(1000), 10, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Projectile)), Vector2.One)));
 
 		}
 
@@ -108,17 +110,6 @@ namespace MobileGame.GameObjects
 			cm.Client.SetAsync(myPath, this);
 		}
 
-		public override void Update(GameTime gt)
-		{
-			UpdateLists(gt);
-
-			TowerShoot();
-
-			ProjectileCollide();
-
-			CleanUpLists();
-		}
-
 		public void SpawnEnemy(IEnemy enemy)
 		{
 			throw new NotImplementedException();
@@ -144,14 +135,18 @@ namespace MobileGame.GameObjects
 
 		void TowerShoot()
 		{
-			foreach(var tower in towers.Where(tower => tower.IsAlive))
+			foreach( var tower in towers )
 			{
+				if( !tower.IsAlive )
+					continue;
+				if( tower.CanShoot() )
+					continue;
 				foreach( var enemy in enemies )
 				{
 					if( !enemy.IsAlive )
 						continue;
 
-					if( !tower.CanShoot(enemy) )
+					if( !tower.IsInRange(enemy) )
 						continue;
 
 					tower.Shoot(enemy, projectiles);
@@ -159,7 +154,6 @@ namespace MobileGame.GameObjects
 				}
 			}
 		}
-
 
 		void CleanUpLists()
 		{
@@ -181,6 +175,29 @@ namespace MobileGame.GameObjects
 		public void SpawnEnemy(Enemy enemy)
 		{
 			enemies.Add(enemy);
+		}
+
+		public override void Update(GameTime gt)
+		{
+			UpdateLists(gt);
+
+			TowerShoot();
+
+			ProjectileCollide();
+
+			CleanUpLists();
+		}
+
+
+		public override void Draw(SpriteBatch sb)
+		{
+			foreach( var tower in towers )
+				tower.Draw(sb);
+			foreach( var enemy in enemies )
+				enemy.Draw(sb);
+			foreach( var projectile in projectiles )
+				projectile.Draw(sb);
+			base.Draw(sb);
 		}
 
 	}

@@ -37,7 +37,7 @@ namespace MobileGame.GameObjects
 			isAlive = true;
 		}
 
-		public void Draw(SpriteBatch sb)
+		public virtual  void Draw(SpriteBatch sb)
 		{
 			if( isAlive )
 				sb.Draw(TextureManager.GetTexture(textureIndex), position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
