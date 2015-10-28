@@ -73,6 +73,7 @@
     <Compile Include="Managers\ClientManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="GameObjects\ParticleEffect.cs" />
+    <Compile Include="Managers\MapGenerator.cs" />
     <Compile Include="Managers\MapManager.cs" />
     <Compile Include="Managers\ParticleEngine.cs" />
     <Compile Include="Managers\SpawnManager.cs" />

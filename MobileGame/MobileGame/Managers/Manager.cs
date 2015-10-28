@@ -24,7 +24,7 @@ namespace MobileGame.Managers
 			players = new List<Player>();
 			MapManager map = new MapManager(10, 20, 30, 30);
 
-			for( int i = 0; i < 1; i++ )
+			for( int i = 0; i < 2; i++ )
 			{
 				players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One)));
 			}
@@ -57,23 +57,6 @@ namespace MobileGame.Managers
 			{
 				player.Draw(sb);
 			}
-		}
-
-
-		void Fidle()
-		{
-			ms = Mouse.GetState();
-			if( ms != oms )
-			{
-				var vec = new Vector2
-				{
-					X = ms.X,
-					Y = ms.Y
-				};
-				
-				cm.Client.SetAsync("Game/0/Position", string.Format("{0},{1}", vec.X, vec.Y));
-			}
-			oms = ms;
 		}
 	}
 }

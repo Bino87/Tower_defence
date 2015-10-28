@@ -95,4 +95,3 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\EnemyMedium.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\EnemySmall.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\TowerLight.png
-C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csprojResolveAssemblyReference.cache
