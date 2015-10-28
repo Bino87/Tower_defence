@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using MobileGame.Drawable;
 using MobileGame.Interfaces;
@@ -8,11 +7,9 @@ namespace MobileGame.GameObjects
 
 	public class Projectile : Moveable, IProjectile
 	{
-		float speed;
 		float lifeTime;
 		float radiusSqrt;
 		readonly int dmg;
-		Vector2 direction;
 		public Projectile(float  lifeTime, float radius, int dmg, Vector2 destiantion,float speed,  RenderDesc renderDesc)
 			: base(destiantion, speed, renderDesc)
 		{

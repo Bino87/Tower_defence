@@ -16,8 +16,8 @@ namespace MobileGame.Drawable
 		float rotation;
 		float depth;
 
-		
-		
+
+
 
 		RenderDesc(int textureIndex, Vector2 position, Rectangle? boundingBox = null, Color? color = null,
 						float rotation = 0.0f, Vector2 origin = default(Vector2), Vector2? scale = null,
@@ -26,7 +26,7 @@ namespace MobileGame.Drawable
 			this.textureIndex = textureIndex;
 			this.position = position;
 			this.boundingBox = boundingBox ?? new Rectangle(0, 0, 30, 30);
-			this.origin = origin;
+			this.origin = new Vector2((float)this.boundingBox.Width/2, (float)this.boundingBox.Height/2);
 			this.color = color ?? Color.White;
 			this.scale = scale ?? Vector2.One;
 			this.spriteEffect = spriteEffect;

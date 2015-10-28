@@ -16,6 +16,7 @@ namespace MobileGame.Managers
 		{
 			var files = Directory.GetFiles(content.RootDirectory);
 
+			int addedElements = 0;
 			for( var index = 0; index < files.Length; index++ )
 			{
 				var extension = Path.GetExtension(files[index]);
@@ -23,10 +24,11 @@ namespace MobileGame.Managers
 					continue;
 				var fileName = Path.GetFileNameWithoutExtension(files[index]);
 				var texture = content.Load<Texture2D>(fileName);
-				Add(index, texture);
+				if( Add(addedElements, texture) )
+					addedElements++;
 				var type = Type.GetType(string.Format("MobileGame.GameObjects.{0}", fileName));
-				if(type != null && !textureIndexes.ContainsKey(type))
-					textureIndexes.Add(type, index);
+				if( type != null && !textureIndexes.ContainsKey(type) )
+					textureIndexes.Add(type, addedElements -1);
 			}
 		}
 
@@ -37,11 +39,12 @@ namespace MobileGame.Managers
 		}
 
 
-		static void Add(int index, Texture2D texture)
+		static bool Add(int index, Texture2D texture)
 		{
 			if( index == textures.Length )
 				Array.Resize(ref textures, index + 1);
 			textures[index] = texture;
+			return true;
 		}
 
 

@@ -22,7 +22,7 @@ namespace MobileGame.Managers
 			oms = ms;
 			cm = new ClientManager("https://blistering-heat-6102.firebaseio.com/");
 			players = new List<Player>();
-
+			MapManager map = new MapManager(10, 20, 30, 30);
 
 			for( int i = 0; i < 1; i++ )
 			{

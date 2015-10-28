@@ -6,13 +6,13 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public class Tower: GameObject, ITower
+	public class Tower: Renderable, IGameObject, ITower
 	{
 		readonly float rangeSqrt;
 		float dmg;
 		readonly float timeBetweenShoots;
 		float timeSinceLastShot;
-		public Tower(float range, float dmg,float timeBetweenShoots, RenderDesc renderDesc)
+		public Tower(float range, float dmg, float timeBetweenShoots, RenderDesc renderDesc)
 			: base(renderDesc)
 		{
 			rangeSqrt = range * range;
@@ -22,15 +22,15 @@ namespace MobileGame.GameObjects
 		}
 
 
-		public override void Update(GameTime gt)
+		public virtual void Update(GameTime gt)
 		{
-			if(timeSinceLastShot > 0)
+			if( timeSinceLastShot > 0 )
 			{
 				timeSinceLastShot -= (float)gt.ElapsedGameTime.TotalSeconds;
 			}
 		}
-
-		public void Shoot(Enemy enemy, List <Projectile> projectiles )
+		
+		public void Shoot(Enemy enemy, List<Projectile> projectiles)
 		{
 			//projectiles.Add(new Projectile(adad));
 			timeSinceLastShot = timeBetweenShoots;

@@ -16,9 +16,10 @@ namespace MobileGame.GameObjects
 		readonly SpriteEffects spriteEffect;
 		readonly Rectangle boundingBox;
 		readonly Color color;
-		readonly float rotation;
+		protected readonly float rotation;
 		readonly float depth;
 		protected bool isAlive;
+		public bool IsAlive { get { return isAlive; } }
 
 		public Vector2 Position { get { return position; } set { position = value; } }
 

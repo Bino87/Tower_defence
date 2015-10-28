@@ -12,7 +12,7 @@ using MobileGame.Managers;
 namespace MobileGame.GameObjects
 {
 
-	public class Player: GameObject, IPlayer
+	public class Player: Renderable, IGameObject, IPlayer
 	{
 		public event EventHandler <BuildTowerEventArgs> BuildTowerEvent;
 		public event EventHandler <TakeDamageEventArgs> TakeDamageEvent;
@@ -177,7 +177,7 @@ namespace MobileGame.GameObjects
 			enemies.Add(enemy);
 		}
 
-		public override void Update(GameTime gt)
+		public void Update(GameTime gt)
 		{
 			UpdateLists(gt);
 
@@ -187,8 +187,7 @@ namespace MobileGame.GameObjects
 
 			CleanUpLists();
 		}
-
-
+		
 		public override void Draw(SpriteBatch sb)
 		{
 			foreach( var tower in towers )

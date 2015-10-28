@@ -34,9 +34,9 @@ namespace MobileGame
 		/// </summary>
 		protected override void Initialize()
 		{
-			m = new Manager();
-
 			TextureManager.LoadTextures(Content);
+
+			m = new Manager();
 			IsMouseVisible = true;
 
 

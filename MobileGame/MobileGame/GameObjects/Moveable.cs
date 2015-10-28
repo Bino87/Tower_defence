@@ -5,10 +5,10 @@ using MobileGame.Interfaces;
 namespace MobileGame.GameObjects
 {
 
-	public class Moveable : GameObject, IMoveable
+	public class Moveable: Renderable, IGameObject, IMoveable
 	{
 		Vector2 direction;
-		float speed;
+		readonly float speed;
 		public Moveable(Vector2 destination, float speed, RenderDesc renderDesc)
 			: base(renderDesc)
 		{
@@ -20,9 +20,9 @@ namespace MobileGame.GameObjects
 
 
 
-		public override void Update(GameTime gt)
+		public virtual void Update(GameTime gt)
 		{
-			position += direction * speed * (float) gt.ElapsedGameTime.TotalSeconds;
+			position += direction * speed * (float)gt.ElapsedGameTime.TotalSeconds;
 		}
 	}
 }

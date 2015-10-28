@@ -53,7 +53,6 @@ namespace MobileGame.Managers
 			DecodePath(args.Path, args.Data);
 		}
 
-
 		void DecodePath(string path, string data)
 		{
 			path = path.Substring(1);
