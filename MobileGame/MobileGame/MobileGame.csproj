@@ -54,11 +54,14 @@
     <Compile Include="GameObjects\Enemies\EnemyLight.cs" />
     <Compile Include="GameObjects\Enemies\EnemyMedium.cs" />
     <Compile Include="GameObjects\Moveable.cs" />
+    <Compile Include="GameObjects\Player\Player.cs" />
     <Compile Include="GameObjects\Renderable.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\Particle.cs" />
     <Compile Include="GameObjects\Projectile.cs" />
+    <Compile Include="GameObjects\Tiles\Ground.cs" />
+    <Compile Include="GameObjects\Tiles\EnemyPath.cs" />
     <Compile Include="GameObjects\Tower.cs" />
     <Compile Include="Interfaces\IMoveable.cs" />
     <Compile Include="Interfaces\IRenderable.cs" />
@@ -68,7 +71,6 @@
     <Compile Include="Interfaces\IProjectile.cs" />
     <Compile Include="Interfaces\ITower.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
-    <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Interfaces\ITile.cs" />
     <Compile Include="Managers\ClientManager.cs" />
     <Compile Include="Managers\Manager.cs" />
@@ -127,19 +129,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\EnemyHeavy.png">
+    <Content Include="Content\Enemies\EnemyHeavy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\EnemyMedium.png">
+    <Content Include="Content\Enemies\EnemyMedium.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\EnemySmall.png">
+    <Content Include="Content\Enemies\EnemySmall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Player.png">
+    <Content Include="Content\Tiles\Ground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TowerLight.png">
+    <Content Include="Content\Tiles\EnemyPath.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Player\Player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Towers\TowerLight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
@@ -152,9 +160,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Particles\" />
+    <Folder Include="Content\Projectiles\" />
     <Folder Include="GameObjects\Particles\" />
     <Folder Include="GameObjects\Projectiles\" />
-    <Folder Include="GameObjects\Tiles\" />
     <Folder Include="GameObjects\Towers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

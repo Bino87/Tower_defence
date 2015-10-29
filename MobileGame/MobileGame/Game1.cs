@@ -43,11 +43,16 @@ namespace MobileGame
 			base.Initialize();
 		}
 
+
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
+
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
+			graphics.PreferredBackBufferWidth = 1300;
+			graphics.PreferredBackBufferHeight = 700;
+			graphics.ApplyChanges();
 			// TODO: use this.Content to load your game content here
 		}
 		

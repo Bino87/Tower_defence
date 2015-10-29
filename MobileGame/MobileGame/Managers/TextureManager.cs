@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,21 +15,24 @@ namespace MobileGame.Managers
 
 		public static void LoadTextures(ContentManager content)
 		{
-			var files = Directory.GetFiles(content.RootDirectory);
+			var directories = Directory.GetDirectories(content.RootDirectory);
 
-			int addedElements = 0;
-			for( var index = 0; index < files.Length; index++ )
+			var files = new List <string>();
+			foreach(var directory in directories)
 			{
-				var extension = Path.GetExtension(files[index]);
-				if( extension != null && !extension.Equals(".png") )
-					continue;
-				var fileName = Path.GetFileNameWithoutExtension(files[index]);
+				files.AddRange(Directory.GetFiles(directory).Where(file => Path.GetExtension(file).Equals(".png")));
+			}
+
+			for( var index = 0; index < files.Count; index++ )
+			{
+				var fileName = files[index].Substring(8);
+				fileName = fileName.Substring(0, fileName.Length - 4);
 				var texture = content.Load<Texture2D>(fileName);
-				if( Add(addedElements, texture) )
-					addedElements++;
-				var type = Type.GetType(string.Format("MobileGame.GameObjects.{0}", fileName));
+				Add(index, texture);
+				var stringType = string.Format("MobileGame.GameObjects.{0}", fileName).Replace("\\", ".");
+				var type = Type.GetType(stringType);
 				if( type != null && !textureIndexes.ContainsKey(type) )
-					textureIndexes.Add(type, addedElements -1);
+					textureIndexes.Add(type, index);
 			}
 		}
 
@@ -39,12 +43,11 @@ namespace MobileGame.Managers
 		}
 
 
-		static bool Add(int index, Texture2D texture)
+		static void Add(int index, Texture2D texture)
 		{
 			if( index == textures.Length )
 				Array.Resize(ref textures, index + 1);
 			textures[index] = texture;
-			return true;
 		}
 
 

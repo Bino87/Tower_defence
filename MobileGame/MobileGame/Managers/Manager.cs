@@ -3,57 +3,56 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MobileGame.Drawable;
-using MobileGame.GameObjects;
+using MobileGame.GameObjects.Player;
 
 namespace MobileGame.Managers
 {
 	class Manager
 	{
-		readonly ClientManager cm;
+		readonly MapManager map;
 		static List <Player> players;
 
-		public static List<Player> Players { get { return players; } set { players = value; } }
-		MouseState ms, oms;
+		public static List <Player> Players { get { return players; } set { players = value; } }
 
 
 		public Manager()
 		{
-			ms = Mouse.GetState();
-			oms = ms;
-			cm = new ClientManager("https://blistering-heat-6102.firebaseio.com/");
-			players = new List<Player>();
-			MapManager map = new MapManager(10, 20, 30, 30);
+			var cm = new ClientManager("https://blistering-heat-6102.firebaseio.com/");
+			Players = new List<Player>();
+			map = new MapManager(10, 20, 30, 30);
 
-			for( int i = 0; i < 2; i++ )
+
+			for( var i = 0; i < 2; i++ )
 			{
-				players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One)));
+				Players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One)));
 			}
 
-			cm.Client.UpdateAsync("Game", players);
+			
+
+			cm.Client.UpdateAsync("Game", Players);
 		}
 
 		public void Update(GameTime gt)
 		{
-			Fidle();
-
 			ParticleEngine.Update(gt);
 
-			foreach( var player in players )
+			foreach( var player in Players )
 				player.Update(gt);
 
-			CleanUpLists();
-		}
+			if( Keyboard.GetState().IsKeyDown(Keys.P) )
+				MapManager.Map = MapGenerator.GenerateMap(10, 20);
 
-		void CleanUpLists()
-		{
 			ParticleEngine.CleanUpList();
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
+
+			map.Draw(sb);
+
 			ParticleEngine.Draw(sb);
 
-			foreach( var player in players )
+			foreach( var player in Players )
 			{
 				player.Draw(sb);
 			}

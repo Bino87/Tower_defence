@@ -1,33 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MobileGame.GameObjects;
 using MobileGame.Interfaces;
-
 
 namespace MobileGame.Managers
 {
 
 	sealed class MapManager
 	{
-		struct Coord
-		{
-			int x;
-			int y;
-
-			public int X { get { return x; } set { x = value; } }
-			public int Y { get { return y; } set { y = value; } }
-		}
-
 		static int width;
 		static int height;
 		static ITile[,] map;
 		int numberOfPlayers;
 		readonly int tileSize;
 		readonly int spread;
+		public static ITile[,] Map { get { return map; } set { map = value; } }
 
 
 		public MapManager(int width, int height, int tileSize, int spread)
@@ -36,8 +22,11 @@ namespace MobileGame.Managers
 			this.spread = spread;
 			MapManager.width = width;
 			MapManager.height = height;
-			//map = MapGenerator.GenerateMap(width, height);
+			map = MapGenerator.GenerateMap(width, height);
+			numberOfPlayers = 4;
 		}
+
+
 
 
 		public void SetNumberOfPlayers(int playerCount)
@@ -59,18 +48,21 @@ namespace MobileGame.Managers
 
 		public void Draw(SpriteBatch sb)
 		{
+			if(map == null)
+				return;
 			Vector2 vector;
 			float xOffset = width * tileSize + spread;
-			foreach( var tile in map )
+			foreach( var tile in Map )
 			{
 				vector = tile.Position;
 				for( int i = 0; i < numberOfPlayers; i++ )
 				{
-					vector.X += xOffset * i;
 					tile.Position = vector;
+					tile.Draw(sb);
+					vector.X += xOffset;
 				}
 
-				vector.X -= xOffset * numberOfPlayers;
+				vector.X -= xOffset * numberOfPlayers ;
 				tile.Position = vector;
 			}
 		}

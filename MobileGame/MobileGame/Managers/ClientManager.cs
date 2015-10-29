@@ -4,12 +4,12 @@ using FireSharp.EventStreaming;
 using FireSharp.Interfaces;
 using Microsoft.Xna.Framework;
 using MobileGame.Enums;
-using MobileGame.GameObjects;
+using MobileGame.GameObjects.Player;
 
 namespace MobileGame.Managers
 {
 
-	public class ClientManager
+	public class ClientManager 
 	{
 		IFirebaseClient client;
 		public ClientManager(string basepath, string authSecret = null)
@@ -21,7 +21,6 @@ namespace MobileGame.Managers
 			if( authSecret != null )
 				config.AuthSecret = authSecret;
 			client = new FirebaseClient(config);
-			client.Delete("");
 			Listen();
 		}
 
@@ -31,7 +30,7 @@ namespace MobileGame.Managers
 
 		async void Listen()
 		{
-			var	esr = await client.OnAsync("", OnValueAdded, OnValueChanged, OnValueRemoved);
+			//await client.OnAsync("", OnValueAdded, OnValueChanged, OnValueRemoved);
 		}
 
 
@@ -66,10 +65,6 @@ namespace MobileGame.Managers
 				break;
 			case "Lobby":
 				break;
-
-			default:
-
-				break;
 			}
 		}
 
@@ -79,7 +74,6 @@ namespace MobileGame.Managers
 
 			switch( folders[index] )
 			{
-			default: break;
 			case "0":
 				GetPlayersVariable(folders, index+1, data, Manager.Players[0]);
 				break;
@@ -100,8 +94,6 @@ namespace MobileGame.Managers
 		{
 			switch( folders[index] )
 			{
-			default: break;
-
 			case "Gold":
 				player.Gold = int.Parse(data);
 				break;
@@ -126,7 +118,6 @@ namespace MobileGame.Managers
 				break;
 			}
 		}
-
 
 	}
 }
