@@ -27,7 +27,6 @@ namespace MobileGame.Managers
 			var rand = new Random();
 			var x = rand.Next(3, width - 3);
 			var y = 0;
-			int index;
 			var openList = new List<Coord>();
 			var closedList = new List<Coord>();
 			var currentCoord = new Coord { X = x, Y = y };
@@ -37,7 +36,6 @@ namespace MobileGame.Managers
 
 			while( currentCoord.Y != height - 1 )
 			{
-
 				SetAdjusantCoords(width, height, currentCoord.X + 1, currentCoord.Y, closedList, openList, boolMap);
 				//openList.Add(closedList[closedList.Count - 1]);
 				SetAdjusantCoords(width, height, currentCoord.X - 1, currentCoord.Y, closedList, openList, boolMap);
@@ -50,7 +48,8 @@ namespace MobileGame.Managers
 					SetAdjusantCoords(width, height, currentCoord.X, currentCoord.Y, closedList, openList, boolMap);
 				}
 
-				index = rand.Next(openList.Count);
+				openList = openList.FindAll(coord => coord.X > 1 && coord.X < width - 2);
+				var index = rand.Next(openList.Count);
 				currentCoord = openList[index];
 				openList.Clear();
 
@@ -63,9 +62,9 @@ namespace MobileGame.Managers
 			if( SetAdjusantCoords(width, height, currentCoord.X - 1, currentCoord.Y, closedList, openList, boolMap) )
 				openList.Add(closedList[closedList.Count - 1]);
 			//Debug Do not remove!
-			WriteDebug(boolMap);
-
-
+			//WriteDebug(boolMap);
+			openList = null;
+			closedList = null;
 
 			return PopulateTileMap(width, height, boolMap);
 		}
@@ -129,11 +128,10 @@ namespace MobileGame.Managers
 			Stream s;
 			try
 			{
-				s = File.Create("C:\\Users\\Kail\\Desktop\\debug.txt");
+				s = File.Create("C:\\Users\\Kamil\\Desktop\\debug.txt");
 			} catch( Exception )
 			{
 				return;
-				throw;
 			}
 			StreamWriter sw = new StreamWriter(s);
 

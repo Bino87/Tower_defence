@@ -197,7 +197,5 @@ namespace MobileGame.GameObjects.Player
 				projectile.Draw(sb);
 			base.Draw(sb);
 		}
-
 	}
-
 }

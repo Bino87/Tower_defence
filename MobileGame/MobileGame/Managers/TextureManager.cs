@@ -20,7 +20,11 @@ namespace MobileGame.Managers
 			var files = new List <string>();
 			foreach(var directory in directories)
 			{
-				files.AddRange(Directory.GetFiles(directory).Where(file => Path.GetExtension(file).Equals(".png")));
+				files.AddRange(Directory.GetFiles(directory).Where(file =>
+				{
+					var extension = Path.GetExtension(file);
+					return extension != null && extension.Equals(".png");
+				}));
 			}
 
 			for( var index = 0; index < files.Count; index++ )

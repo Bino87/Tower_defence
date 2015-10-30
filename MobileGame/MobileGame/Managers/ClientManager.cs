@@ -9,7 +9,7 @@ using MobileGame.GameObjects.Player;
 namespace MobileGame.Managers
 {
 
-	public class ClientManager 
+	public class ClientManager
 	{
 		IFirebaseClient client;
 		public ClientManager(string basepath, string authSecret = null)

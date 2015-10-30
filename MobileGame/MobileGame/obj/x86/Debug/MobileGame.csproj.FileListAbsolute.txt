@@ -97,4 +97,3 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Tiles\Ground.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Player\Player.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Tiles\EnemyPath.png
-C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csprojResolveAssemblyReference.cache

@@ -14,11 +14,6 @@ namespace MobileGame
 		SpriteBatch spriteBatch;
 		Manager m;
 
-
-
-
-
-
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -26,12 +21,7 @@ namespace MobileGame
 
 		}
 
-		/// <summary>
-		/// Allows the game to perform any initialization it needs to before starting to run.
-		/// This is where it can query for any required services and load any non-graphic
-		/// related content.  Calling base.Initialize will enumerate through any components
-		/// and initialize them as well.
-		/// </summary>
+
 		protected override void Initialize()
 		{
 			TextureManager.LoadTextures(Content);
@@ -42,7 +32,6 @@ namespace MobileGame
 
 			base.Initialize();
 		}
-
 
 		protected override void LoadContent()
 		{

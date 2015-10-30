@@ -20,13 +20,13 @@ namespace MobileGame.Drawable
 
 
 		RenderDesc(int textureIndex, Vector2 position, Rectangle? boundingBox = null, Color? color = null,
-						float rotation = 0.0f, Vector2 origin = default(Vector2), Vector2? scale = null,
+						float rotation = 0.0f, Vector2? origin = null, Vector2? scale = null,
 						SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
 		{
 			this.textureIndex = textureIndex;
 			this.position = position;
 			this.boundingBox = boundingBox ?? new Rectangle(0, 0, 30, 30);
-			this.origin = new Vector2((float)this.boundingBox.Width/2, (float)this.boundingBox.Height/2);
+			this.origin = origin ?? new Vector2((float)this.boundingBox.Width/2, (float)this.boundingBox.Height/2);
 			this.color = color ?? Color.White;
 			this.scale = scale ?? Vector2.One;
 			this.spriteEffect = spriteEffect;
@@ -60,10 +60,8 @@ namespace MobileGame.Drawable
 		/// <param name="depth"></param>
 		/// <returns></returns>
 		public static RenderDesc CreateDrawDescriptin(int textureIndex, Vector2 position, Rectangle? boundingBox = null,
-														   Color? color = null,
-														   float rotation = 0.0f, Vector2 origin = default(Vector2),
-														   Vector2? scale = null,
-														   SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
+									Color? color = null, float rotation = 0.0f, Vector2? origin = null, 
+									Vector2? scale = null, SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
 		{
 			return new RenderDesc(textureIndex, position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
 		}

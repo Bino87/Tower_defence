@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MobileGame.Interfaces;
 
 namespace MobileGame.Managers
@@ -16,17 +17,15 @@ namespace MobileGame.Managers
 		public static ITile[,] Map { get { return map; } set { map = value; } }
 
 
-		public MapManager(int width, int height, int tileSize, int spread)
+		public MapManager(int width, int height, int tileSize, int spread, int playersCount)
 		{
 			this.tileSize = tileSize;
 			this.spread = spread;
 			MapManager.width = width;
 			MapManager.height = height;
 			map = MapGenerator.GenerateMap(width, height);
-			numberOfPlayers = 4;
+			numberOfPlayers = playersCount;
 		}
-
-
 
 
 		public void SetNumberOfPlayers(int playerCount)
@@ -36,33 +35,58 @@ namespace MobileGame.Managers
 
 		public static bool IsPassable(int x, int y)
 		{
+			if( map == null )
+				return false;
 			if( x < 0 || x >= width )
 				return false;
 			if( y < 0 || y >= height )
 				return false;
 
-			//Check if typeof(map[x,y]) is passable;
-
-			return true;
+			return map[x, y].IsPassable();
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
-			if(map == null)
+			if( map == null )
 				return;
-			Vector2 vector;
+			var test = new List <ITile>();
+			int y = 0;
+			int x = 1;
+
+			while(y < height )
+			{
+				for( ; x <  width -1; x++)
+				{
+					if(!IsPassable(x, y))
+						continue;
+					if(!IsPassable(x - 1, y) || !IsPassable(x + 1, y))
+						continue;
+					test.Add(map[x, y]);
+					y++;
+					x = x - 1;
+					break;
+				}
+			}
+
+			foreach(var tile in test)
+			{
+				tile.Draw(sb);
+			}
+
+			if(Keyboard.GetState().IsKeyDown(Keys.Space))
+				return;
 			float xOffset = width * tileSize + spread;
 			foreach( var tile in Map )
 			{
-				vector = tile.Position;
-				for( int i = 0; i < numberOfPlayers; i++ )
+				var vector = tile.Position;
+				for( var i = 0; i < numberOfPlayers; i++ )
 				{
 					tile.Position = vector;
 					tile.Draw(sb);
 					vector.X += xOffset;
 				}
 
-				vector.X -= xOffset * numberOfPlayers ;
+				vector.X -= xOffset * numberOfPlayers;
 				tile.Position = vector;
 			}
 		}

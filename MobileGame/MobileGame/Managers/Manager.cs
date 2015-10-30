@@ -12,23 +12,20 @@ namespace MobileGame.Managers
 		readonly MapManager map;
 		static List <Player> players;
 
-		public static List <Player> Players { get { return players; } set { players = value; } }
+		public static List<Player> Players { get { return players; } set { players = value; } }
 
 
 		public Manager()
 		{
 			var cm = new ClientManager("https://blistering-heat-6102.firebaseio.com/");
 			Players = new List<Player>();
-			map = new MapManager(10, 20, 30, 30);
 
-
-			for( var i = 0; i < 2; i++ )
+			for( var i = 0; i < 4; i++ )
 			{
 				Players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One)));
 			}
 
-			
-
+			map = new MapManager(10, 20, 30, 30, players.Count);
 			cm.Client.UpdateAsync("Game", Players);
 		}
 
