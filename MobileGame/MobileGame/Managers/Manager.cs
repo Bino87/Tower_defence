@@ -26,6 +26,7 @@ namespace MobileGame.Managers
 			}
 
 			map = new MapManager(10, 20, 30, 30, players.Count);
+
 			cm.Client.UpdateAsync("Game", Players);
 		}
 
