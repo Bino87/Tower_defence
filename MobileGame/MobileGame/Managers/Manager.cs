@@ -9,7 +9,6 @@ namespace MobileGame.Managers
 {
 	class Manager
 	{
-		readonly MapManager map;
 		static List <Player> players;
 
 		public static List<Player> Players { get { return players; } set { players = value; } }
@@ -19,15 +18,18 @@ namespace MobileGame.Managers
 		{
 			var cm = new ClientManager("https://blistering-heat-6102.firebaseio.com/");
 			Players = new List<Player>();
-
-			for( var i = 0; i < 4; i++ )
+			cm.Client.DeleteAsync("");
+			var pCount = 4;
+			MapManager.GenerateMap(10, 20, 30, 30, pCount);
+			for( var i = 0; i < pCount; i++ )
 			{
-				Players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One)));
+				Players.Add(new Player(i, cm, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Player)), Vector2.One,origin: Vector2.Zero)));
+
 			}
 
-			map = new MapManager(10, 20, 30, 30, players.Count);
 
-			cm.Client.UpdateAsync("Game", Players);
+
+			//cm.Client.UpdateAsync("Game", Players);
 		}
 
 		public void Update(GameTime gt)
@@ -46,7 +48,7 @@ namespace MobileGame.Managers
 		public void Draw(SpriteBatch sb)
 		{
 
-			map.Draw(sb);
+			MapManager.Draw(sb);
 
 			ParticleEngine.Draw(sb);
 

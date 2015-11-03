@@ -1,7 +1,8 @@
 namespace MobileGame.Interfaces
 {
-	interface ITile: IRenderable
+
+	public interface ITile: IRenderable
 	{
-		bool IsPassable();
+		bool CanPlaceTower();
 	}
 }

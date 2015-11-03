@@ -30,29 +30,16 @@ namespace MobileGame.Managers
 
 		async void Listen()
 		{
-			//await client.OnAsync("", OnValueAdded, OnValueChanged, OnValueRemoved);
-		}
-
-
-		void OnValueRemoved(object sender, ValueRemovedEventArgs args)
-		{
-
-		}
-
-
-		void OnValueAdded(object sender, ValueAddedEventArgs args)
-		{
-
+			await client.OnAsync("", null, OnValueChanged);
 		}
 
 
 		void OnValueChanged(object sender, ValueChangedEventArgs args)
 		{
-
-			DecodePath(args.Path, args.Data);
+			DecodePath(args.Path, args.Data, args.OldData);
 		}
 
-		void DecodePath(string path, string data)
+		void DecodePath(string path, string data, string oldData)
 		{
 			path = path.Substring(1);
 			var folders = path.Split('/');
@@ -61,44 +48,56 @@ namespace MobileGame.Managers
 			switch( folders[index] )
 			{
 			case "Game":
-				GetPlayerIndex(folders, index+1, data);
+				GetPlayerIndex(folders, data, oldData, ++index);
 				break;
 			case "Lobby":
+				OnLobbyChange(folders, data, oldData);
+				break;
+			case "Settings":
+				OnSettingsChange(folders, data, oldData, ++index);
 				break;
 			}
 		}
 
 
-		void GetPlayerIndex(string[] folders, int index, string data)
+		void OnSettingsChange(string[] folders, string data, string oldData, int index)
 		{
 
-			switch( folders[index] )
-			{
-			case "0":
-				GetPlayersVariable(folders, index+1, data, Manager.Players[0]);
-				break;
-			case "1":
-				GetPlayersVariable(folders, index+1, data, Manager.Players[1]);
-				break;
-			case "2":
-				GetPlayersVariable(folders, index+1, data, Manager.Players[2]);
-				break;
-			case "3":
-				GetPlayersVariable(folders, index+1, data, Manager.Players[3]);
-				break;
-			}
 		}
 
 
-		void GetPlayersVariable(string[] folders, int index, string data, Player player)
+		void OnLobbyChange(string[] folders, string data, string oldData)
+		{
+
+		}
+
+
+		void GetPlayerIndex(string[] folders, string data, string oldData, int index)
+		{
+			int pIndex;
+			if( !int.TryParse(folders[index], out pIndex) )
+				return;
+			++index;
+			GetPlayersVariable(folders, data, oldData, Manager.Players[pIndex], index);
+		}
+
+
+		void GetPlayersVariable(string[] folders, string data, string oldData, Player player, int index)
 		{
 			switch( folders[index] )
 			{
 			case "Gold":
-				player.Gold = int.Parse(data);
+				int gold;
+				int oldGold;
+				if( !int.TryParse(data, out gold) )
+					break;
+				if( !int.TryParse(oldData, out oldGold) )
+					break;
+				if( gold >= oldGold )
+					break;
+				player.Gold = gold;
 				break;
-			case "Kills": break;
-			case "LivesLeft": break;
+
 			case "Position":
 
 				var split = data.Split(',');
@@ -111,13 +110,27 @@ namespace MobileGame.Managers
 
 
 				break;
-			case "Score": break;
+
 			case "Status":
-				int enumId = int.Parse(data);
-				player.Status = (PlayerStatus)enumId;
+				int intData;
+				int oldIntData;
+				if( !int.TryParse(data, out intData) )
+					break;
+				if(intData == 0)
+				{
+					player.Status = PlayerStatus.Idle;
+					break;
+				}
+				if( !int.TryParse(oldData, out oldIntData) )
+					break;
+				
+				if( player.Status == PlayerStatus.Idle )
+					player.BuildTower((PlayerStatus)intData);
+				else
+					player.Status = (PlayerStatus)intData;
+
 				break;
 			}
 		}
-
 	}
 }

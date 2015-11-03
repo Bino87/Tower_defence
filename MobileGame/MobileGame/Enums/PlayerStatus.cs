@@ -5,7 +5,7 @@
 		Idle,
 		OK,
 		Failed,
-		BuildTower,
+		BuildTowerLight,
 		BuildTower2,
 		BuildTower3,
 		BuildTower4

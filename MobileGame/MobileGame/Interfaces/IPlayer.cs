@@ -9,7 +9,7 @@ namespace MobileGame.Interfaces
 	{
 		
 		void TakeDamage(int dmgTaken);
-		void BuildTower(PlayerStatus pStatus, Tower tower);
+		void BuildTower(PlayerStatus pStatus);
 		void SpawnEnemy(Enemy enemy);
 		void Draw(SpriteBatch sb);
 		int Gold { get; set; }

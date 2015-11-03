@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Drawable;
 using MobileGame.Enums;
 using MobileGame.EventArgs;
+using MobileGame.GameObjects.Tiles;
 using MobileGame.Interfaces;
 using MobileGame.Managers;
 
@@ -13,7 +14,6 @@ namespace MobileGame.GameObjects.Player
 
 	public class Player: Renderable, IGameObject, IPlayer
 	{
-		public event EventHandler <BuildTowerEventArgs> BuildTowerEvent;
 		public event EventHandler <TakeDamageEventArgs> TakeDamageEvent;
 		List <Enemy> enemies;
 		List <Tower> towers;
@@ -25,6 +25,7 @@ namespace MobileGame.GameObjects.Player
 		int gold;
 		int livesLeft;
 		int score;
+		readonly int index;
 
 		public PlayerStatus Status
 		{
@@ -35,7 +36,7 @@ namespace MobileGame.GameObjects.Player
 			set
 			{
 				playerStatus = value;
-				if( playerStatus == PlayerStatus.BuildTower )
+				if( playerStatus == PlayerStatus.BuildTowerLight )
 				{
 					// build tower
 				}
@@ -53,23 +54,18 @@ namespace MobileGame.GameObjects.Player
 			towers = new List<Tower>();
 			enemies = new List<Enemy>();
 			projectiles = new List<Projectile>();
+			this.index = index;
 			myPath = string.Format("{0}{1}", "Game/", index);
 			livesLeft = int.MaxValue;
 			gold = 300;
 			playerStatus = PlayerStatus.Idle;
+			position = new Vector2(index * MapManager.TileSize * 10 + index * MapManager.Spread + 100, 300f);
 			CreateFirebaseSlot();
 			TakeDamageEvent += OnTakeDamage;
-			BuildTowerEvent += OnBuildTower;
 			projectiles.Add(new Projectile(10, 10, 10, new Vector2(1000), 10, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Projectile)), Vector2.One)));
 
 		}
 
-
-		void OnBuildTower(object sender, BuildTowerEventArgs e)
-		{
-			towers.Add(e.Tower);
-			cm.Client.SetAsync(myPath, this);
-		}
 
 		void OnTakeDamage(object sender, TakeDamageEventArgs args)
 		{
@@ -84,18 +80,31 @@ namespace MobileGame.GameObjects.Player
 
 		}
 
-		public void BuildTower(PlayerStatus pStatus, Tower tower)
+		public void BuildTower(PlayerStatus pStatus)
 		{
-
 			if( playerStatus == pStatus )
 				return;
+			if( CanBuildTower() )
+			{
+				playerStatus = PlayerStatus.OK;
+				gold -= 50;
+				var tower = Tower.GetTowerInstance(position, index, pStatus);
+				if( tower != null )
+					towers.Add(tower);
+			}
+			else
+			{
+				playerStatus = PlayerStatus.Failed;
+			}
 
-			//Create logic allowing building towers
+			cm.Client.UpdateAsync(myPath, Manager.Players[index]);
+		}
 
+		bool CanBuildTower()
+		{
+			var coord = MapManager.GetTileIndexFromPosition(position, index);
 
-
-			if( BuildTowerEvent != null )
-				BuildTowerEvent.Invoke(this, new BuildTowerEventArgs { PlayerStatus =  pStatus, Tower = tower });
+			return MapManager.IsPassable(coord);
 		}
 
 		public void TakeDamage(int dmgTaken)
@@ -138,7 +147,7 @@ namespace MobileGame.GameObjects.Player
 			{
 				if( !tower.IsAlive )
 					continue;
-				if( tower.CanShoot() )
+				if( !tower.CanShoot() )
 					continue;
 				foreach( var enemy in enemies )
 				{
@@ -185,10 +194,22 @@ namespace MobileGame.GameObjects.Player
 			ProjectileCollide();
 
 			CleanUpLists();
+
+			if(Status == PlayerStatus.OK)
+			{
+				Status = PlayerStatus.BuildTowerLight + 1000;
+				cm.Client.UpdateAsync(myPath, Manager.Players[index]);
+			}
 		}
-		
+
 		public override void Draw(SpriteBatch sb)
 		{
+			var coord = MapManager.GetTileIndexFromPosition(position, index);
+			var t = MapManager.Map[coord.X, coord.Y].Position;
+			t.X += MapManager.GetXaxisOffser(index);
+			ITile temp = new Ground(RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Ground)), t, color : Color.Pink, depth : 0.0f));
+
+			temp.Draw(sb);
 			foreach( var tower in towers )
 				tower.Draw(sb);
 			foreach( var enemy in enemies )
@@ -197,5 +218,6 @@ namespace MobileGame.GameObjects.Player
 				projectile.Draw(sb);
 			base.Draw(sb);
 		}
+
 	}
 }

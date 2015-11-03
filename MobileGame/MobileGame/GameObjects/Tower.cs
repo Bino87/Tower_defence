@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MobileGame.Drawable;
+using MobileGame.Enums;
+using MobileGame.GameObjects.Towers;
 using MobileGame.Interfaces;
+using MobileGame.Managers;
 
 namespace MobileGame.GameObjects
 {
@@ -29,7 +33,7 @@ namespace MobileGame.GameObjects
 				timeSinceLastShot -= (float)gt.ElapsedGameTime.TotalSeconds;
 			}
 		}
-		
+
 		public void Shoot(Enemy enemy, List<Projectile> projectiles)
 		{
 			//projectiles.Add(new Projectile(adad));
@@ -44,6 +48,27 @@ namespace MobileGame.GameObjects
 		public bool CanShoot()
 		{
 			return timeSinceLastShot <= 0.0f;
+		}
+
+
+		public static Tower GetTowerInstance(Vector2 position, int index, PlayerStatus pStatus)
+		{
+			var coord = MapManager.GetTileIndexFromPosition(position, index);
+			switch( pStatus )
+			{
+			case PlayerStatus.BuildTowerLight:
+				var pos = MapManager.Map[coord.X, coord.Y].Position;
+				pos.X += MapManager.GetXaxisOffser(index);
+				return  new TowerLight(90f,10f,1f,RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(TowerLight)),pos));
+				break;
+			case PlayerStatus.BuildTower2:
+				break;
+			case PlayerStatus.BuildTower3:
+				break;
+			case PlayerStatus.BuildTower4:
+				break;
+			}
+			return null;
 		}
 	}
 }

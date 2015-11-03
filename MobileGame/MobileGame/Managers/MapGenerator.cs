@@ -85,20 +85,22 @@ namespace MobileGame.Managers
 		static ITile[,] PopulateTileMap(int width, int height, bool[,] boolMap)
 		{
 			var map = new ITile[width, height];
-
+			Vector2 offset = new Vector2(MapManager.TileSize /2.0f);
+			Vector2 vec;
 			for( int x = 0; x < width; x++ )
 			{
 				for( int y = 0; y < height; y++ )
 				{
+					vec = new Vector2(x * 30, y * 30) + offset;
 					map[x, y] = boolMap[x, y]
 						? (ITile)
 						new EnemyPath(RenderDesc.CreateDrawDescriptin(
 							TextureManager.GetTextureIndex(typeof(EnemyPath)),
-							new Vector2(x * 30, y * 30))) 
+							vec)) 
 							:
 						new Ground(RenderDesc.CreateDrawDescriptin(
 							TextureManager.GetTextureIndex(typeof(Ground)),
-							new Vector2(x * 30, y * 30)));
+							vec));
 				}
 			}
 			return map;

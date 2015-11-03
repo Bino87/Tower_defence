@@ -11,9 +11,9 @@ namespace MobileGame.GameObjects.Tiles
 		}
 
 
-		public bool IsPassable()
+		public bool CanPlaceTower()
 		{
-			return true;
+			return false;
 		}
 	}
 }
