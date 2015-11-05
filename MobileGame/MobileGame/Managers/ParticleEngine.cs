@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MobileGame.Drawable;
+using MobileGame.Enums;
 using MobileGame.GameObjects;
 
 namespace MobileGame.Managers
@@ -10,9 +13,27 @@ namespace MobileGame.Managers
 		static List <ParticleEffect> particleEffects = new List <ParticleEffect>();
 
 
-		public static void AddEffect()
+		public static void AddEffect<T>(ParticleEffectType pet, Vector2 position) where T : Renderable
 		{
-			
+			var particleDesc = CreateParticleEffectDescription(pet);
+		}
+
+
+		static ParticleEffectDescription CreateParticleEffectDescription(ParticleEffectType pet)
+		{
+			switch(pet)
+			{
+			case ParticleEffectType.Shoot:
+				break;
+			case ParticleEffectType.Explode:
+				break;
+			case ParticleEffectType.Die:
+				break;
+			case ParticleEffectType.Escape:
+				break;
+			}
+
+			return null;
 		}
 
 
@@ -39,4 +60,11 @@ namespace MobileGame.Managers
 			}
 		}
 	}
+
+	class ParticleEffectDescription
+	{
+		int amount;
+		RenderDesc renderDesc;
+	}
+
 }

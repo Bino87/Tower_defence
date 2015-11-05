@@ -7,7 +7,7 @@ namespace MobileGame.GameObjects
 
 	public class Moveable: Renderable, IGameObject, IMoveable
 	{
-		Vector2 direction;
+		protected Vector2 direction;
 		readonly float speed;
 		public Moveable(Vector2 destination, float speed, RenderDesc renderDesc)
 			: base(renderDesc)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MobileGame.Managers;
 
 namespace MobileGame.Drawable
 {
@@ -59,10 +60,11 @@ namespace MobileGame.Drawable
 		/// <param name="spriteEffect"></param>
 		/// <param name="depth"></param>
 		/// <returns></returns>
-		public static RenderDesc CreateDrawDescriptin(int textureIndex, Vector2 position, Rectangle? boundingBox = null,
+		public static RenderDesc CreateDrawDescriptin<T>( Vector2 position, Rectangle? boundingBox = null,
 									Color? color = null, float rotation = 0.0f, Vector2? origin = null, 
 									Vector2? scale = null, SpriteEffects spriteEffect = SpriteEffects.None, float depth = 1.0f)
 		{
+			int textureIndex = TextureManager.GetTextureIndex(typeof(T));
 			return new RenderDesc(textureIndex, position, boundingBox, color, rotation, origin, scale, spriteEffect, depth);
 		}
 	}

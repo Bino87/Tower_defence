@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Drawable;
 using MobileGame.Enums;
 using MobileGame.EventArgs;
+using MobileGame.GameObjects.Enemies;
 using MobileGame.GameObjects.Tiles;
 using MobileGame.Interfaces;
 using MobileGame.Managers;
@@ -50,6 +51,11 @@ namespace MobileGame.GameObjects.Player
 		protected internal Player(int index, ClientManager cm, RenderDesc renderDesc)
 			: base(renderDesc)
 		{
+
+			//RenderableDest.CreateRenderDesc<T>()
+			//{
+			//		int index = TextureManager.GetTextureIndex(typeof(T));
+			//}
 			this.cm = cm;
 			towers = new List<Tower>();
 			enemies = new List<Enemy>();
@@ -59,13 +65,34 @@ namespace MobileGame.GameObjects.Player
 			livesLeft = int.MaxValue;
 			gold = 300;
 			playerStatus = PlayerStatus.Idle;
-			position = new Vector2(index * MapManager.TileSize * 10 + index * MapManager.Spread + 100, 300f);
+			position = new Vector2(MapManager.GetXaxisOffser(index) + 50f, 200f);
 			CreateFirebaseSlot();
 			TakeDamageEvent += OnTakeDamage;
-			projectiles.Add(new Projectile(10, 10, 10, new Vector2(1000), 10, RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Projectile)), Vector2.One)));
-
+			var em = CreateEnemy<EnemyLight>();
+			enemies.Add(em);
+			 em = CreateEnemy<EnemyMedium>();
+			enemies.Add(em);
+			em = CreateEnemy<EnemyHeavy>();
+			enemies.Add(em);
 		}
 
+
+		Enemy CreateEnemy<TEnemyType>() where TEnemyType: Enemy
+		{
+			var type = typeof(TEnemyType);
+			var pos = MapManager.Path.Peek();
+			pos.X += MapManager.GetXaxisOffser(index);
+			var dest = Vector2.Zero;
+
+			if( type == typeof(EnemyLight) )
+				return new EnemyLight(MapManager.Path, index, 100, dest, 100, RenderDesc.CreateDrawDescriptin<EnemyLight>(pos));
+			if( type == typeof(EnemyMedium) )
+				return new EnemyMedium(MapManager.Path, index, 200, dest, 75, RenderDesc.CreateDrawDescriptin<EnemyMedium>(pos));
+			if( type == typeof(EnemyHeavy) )
+				return new EnemyMedium(MapManager.Path, index, 400, dest, 50, RenderDesc.CreateDrawDescriptin<EnemyHeavy>(pos));
+
+			return null;
+		}
 
 		void OnTakeDamage(object sender, TakeDamageEventArgs args)
 		{
@@ -115,7 +142,7 @@ namespace MobileGame.GameObjects.Player
 
 		public void CreateFirebaseSlot()
 		{
-			cm.Client.SetAsync(myPath, this);
+			cm.Client.UpdateAsync(myPath, this);
 		}
 
 		public void SpawnEnemy(IEnemy enemy)
@@ -194,20 +221,14 @@ namespace MobileGame.GameObjects.Player
 			ProjectileCollide();
 
 			CleanUpLists();
-
-			if(Status == PlayerStatus.OK)
-			{
-				Status = PlayerStatus.BuildTowerLight + 1000;
-				cm.Client.UpdateAsync(myPath, Manager.Players[index]);
-			}
 		}
 
 		public override void Draw(SpriteBatch sb)
 		{
 			var coord = MapManager.GetTileIndexFromPosition(position, index);
-			var t = MapManager.Map[coord.X, coord.Y].Position;
-			t.X += MapManager.GetXaxisOffser(index);
-			ITile temp = new Ground(RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(Ground)), t, color : Color.Pink, depth : 0.0f));
+			var pos = MapManager.Map[coord.X, coord.Y].Position;
+			pos.X += MapManager.GetXaxisOffser(index);
+			ITile temp = new Ground(RenderDesc.CreateDrawDescriptin<Ground>(pos, color : Color.Pink));
 
 			temp.Draw(sb);
 			foreach( var tower in towers )

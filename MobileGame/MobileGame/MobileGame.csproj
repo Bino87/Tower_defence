@@ -47,6 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Drawable\RenderDesc.cs" />
+    <Compile Include="Enums\ParticleEffectType.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="EventArgs\BuildTowerEventArgs.cs" />
     <Compile Include="EventArgs\TakeDamageEventArgs.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\Coord.cs" />
+    <Compile Include="Structs\MapDescription.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FireSharp">
@@ -137,7 +139,7 @@
     <Content Include="Content\Enemies\EnemyMedium.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Enemies\EnemySmall.png">
+    <Content Include="Content\Enemies\EnemyLight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tiles\Ground.png">

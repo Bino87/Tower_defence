@@ -18,7 +18,6 @@ namespace MobileGame
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-
 		}
 
 
@@ -28,7 +27,6 @@ namespace MobileGame
 
 			m = new Manager();
 			IsMouseVisible = true;
-
 
 			base.Initialize();
 		}

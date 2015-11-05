@@ -6,32 +6,31 @@ using Microsoft.Xna.Framework;
 using MobileGame.Drawable;
 using MobileGame.GameObjects.Tiles;
 using MobileGame.Interfaces;
+using MobileGame.Structs;
 
 namespace MobileGame.Managers
 {
 	class MapGenerator
 	{
-		struct Coord
-		{
-			int x;
-			int y;
 
-			public int X { get { return x; } set { x = value; } }
-			public int Y { get { return y; } set { y = value; } }
-		}
-
-		public static ITile[,] GenerateMap(int width, int height)
+		public static MapDescription GenerateMap(int width, int height)
 		{
 
+			MapDescription mapDesc = new MapDescription
+			{
+				Map = new ITile[width, height],
+				Path = new Queue<Vector2>()
+			};
 			var boolMap = new bool[width, height];
 			var rand = new Random();
 			var x = rand.Next(3, width - 3);
 			var y = 0;
 			var openList = new List<Coord>();
 			var closedList = new List<Coord>();
-			var currentCoord = new Coord { X = x, Y = y };
+			Coord currentCoord = new Coord { X = x, Y = y };
 			SetBoolMapCoord(boolMap, currentCoord, true);
 			closedList.Add(currentCoord);
+			mapDesc.EnQueue(currentCoord);
 
 
 			while( currentCoord.Y != height - 1 )
@@ -51,6 +50,7 @@ namespace MobileGame.Managers
 				openList = openList.FindAll(coord => coord.X > 1 && coord.X < width - 2);
 				var index = rand.Next(openList.Count);
 				currentCoord = openList[index];
+				mapDesc.EnQueue(currentCoord);
 				openList.Clear();
 
 
@@ -66,7 +66,7 @@ namespace MobileGame.Managers
 			openList = null;
 			closedList = null;
 
-			return PopulateTileMap(width, height, boolMap);
+			return PopulateTileMap(width, height, boolMap, mapDesc);
 		}
 
 		static void AddToOpenList(List<Coord> openList, Coord currentCoord, int width)
@@ -82,7 +82,7 @@ namespace MobileGame.Managers
 			map[coord.X, coord.Y] = boolToSet;
 		}
 
-		static ITile[,] PopulateTileMap(int width, int height, bool[,] boolMap)
+		static MapDescription PopulateTileMap(int width, int height, bool[,] boolMap, MapDescription mapDesc)
 		{
 			var map = new ITile[width, height];
 			Vector2 offset = new Vector2(MapManager.TileSize /2.0f);
@@ -94,16 +94,13 @@ namespace MobileGame.Managers
 					vec = new Vector2(x * 30, y * 30) + offset;
 					map[x, y] = boolMap[x, y]
 						? (ITile)
-						new EnemyPath(RenderDesc.CreateDrawDescriptin(
-							TextureManager.GetTextureIndex(typeof(EnemyPath)),
-							vec)) 
+						new EnemyPath(RenderDesc.CreateDrawDescriptin<EnemyPath>(vec)) 
 							:
-						new Ground(RenderDesc.CreateDrawDescriptin(
-							TextureManager.GetTextureIndex(typeof(Ground)),
-							vec));
+						new Ground(RenderDesc.CreateDrawDescriptin<Ground>(vec));
 				}
 			}
-			return map;
+			mapDesc.Map = map;
+			return mapDesc;
 		}
 
 		static bool SetAdjusantCoords(int width, int height, int x, int y, ICollection<Coord> closedList, ICollection<Coord> openList, bool[,] boolMap)

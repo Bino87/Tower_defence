@@ -1,4 +1,5 @@
-﻿using FireSharp;
+﻿using System;
+using FireSharp;
 using FireSharp.Config;
 using FireSharp.EventStreaming;
 using FireSharp.Interfaces;
@@ -30,9 +31,14 @@ namespace MobileGame.Managers
 
 		async void Listen()
 		{
-			await client.OnAsync("", null, OnValueChanged);
+			await client.OnAsync("", OnValueAdded, OnValueChanged);
 		}
 
+
+		void OnValueAdded(object sender, ValueAddedEventArgs args)
+		{
+			DecodePath(args.Path, args.Data, String.Empty);
+		}
 
 		void OnValueChanged(object sender, ValueChangedEventArgs args)
 		{
@@ -74,11 +80,16 @@ namespace MobileGame.Managers
 
 		void GetPlayerIndex(string[] folders, string data, string oldData, int index)
 		{
-			int pIndex;
-			if( !int.TryParse(folders[index], out pIndex) )
+			if( folders.Length < 3 )
 				return;
-			++index;
-			GetPlayersVariable(folders, data, oldData, Manager.Players[pIndex], index);
+			if( folders[folders.Length - 1].Equals("Position") || folders[folders.Length - 1].Equals("Status") )
+			{
+				int pIndex;
+				if( !int.TryParse(folders[index], out pIndex) )
+					return;
+				++index;
+				GetPlayersVariable(folders, data, oldData, Manager.Players[pIndex], index);
+			}
 		}
 
 
@@ -86,18 +97,6 @@ namespace MobileGame.Managers
 		{
 			switch( folders[index] )
 			{
-			case "Gold":
-				int gold;
-				int oldGold;
-				if( !int.TryParse(data, out gold) )
-					break;
-				if( !int.TryParse(oldData, out oldGold) )
-					break;
-				if( gold >= oldGold )
-					break;
-				player.Gold = gold;
-				break;
-
 			case "Position":
 
 				var split = data.Split(',');
@@ -116,14 +115,12 @@ namespace MobileGame.Managers
 				int oldIntData;
 				if( !int.TryParse(data, out intData) )
 					break;
-				if(intData == 0)
+				if( intData == 0 )
 				{
 					player.Status = PlayerStatus.Idle;
 					break;
 				}
-				if( !int.TryParse(oldData, out oldIntData) )
-					break;
-				
+
 				if( player.Status == PlayerStatus.Idle )
 					player.BuildTower((PlayerStatus)intData);
 				else

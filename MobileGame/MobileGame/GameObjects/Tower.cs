@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MobileGame.Drawable;
 using MobileGame.Enums;
+using MobileGame.GameObjects.Tiles;
 using MobileGame.GameObjects.Towers;
 using MobileGame.Interfaces;
 using MobileGame.Managers;
@@ -36,20 +37,22 @@ namespace MobileGame.GameObjects
 
 		public void Shoot(Enemy enemy, List<Projectile> projectiles)
 		{
-			//projectiles.Add(new Projectile(adad));
+			var projectile = new Projectile(2f, 4f, 10, enemy.Position, 50f, RenderDesc.CreateDrawDescriptin<Ground>(position, new
+			Rectangle(0, 0, 8, 8), Color.Red));
+			projectiles.Add(projectile);
 			timeSinceLastShot = timeBetweenShoots;
 		}
 
 		public bool IsInRange(Enemy enemy)
 		{
-			return (Vector2.DistanceSquared(position, enemy.Position) <= rangeSqrt);
+			float rsqrt = Vector2.DistanceSquared(position, enemy.Position);
+			return rsqrt<= rangeSqrt;
 		}
 
 		public bool CanShoot()
 		{
 			return timeSinceLastShot <= 0.0f;
 		}
-
 
 		public static Tower GetTowerInstance(Vector2 position, int index, PlayerStatus pStatus)
 		{
@@ -59,7 +62,7 @@ namespace MobileGame.GameObjects
 			case PlayerStatus.BuildTowerLight:
 				var pos = MapManager.Map[coord.X, coord.Y].Position;
 				pos.X += MapManager.GetXaxisOffser(index);
-				return  new TowerLight(90f,10f,1f,RenderDesc.CreateDrawDescriptin(TextureManager.GetTextureIndex(typeof(TowerLight)),pos));
+				return new TowerLight(90f, 10f, 1f, RenderDesc.CreateDrawDescriptin<TowerLight>(pos));
 				break;
 			case PlayerStatus.BuildTower2:
 				break;

@@ -31,6 +31,7 @@ namespace MobileGame.GameObjects
 		public void DealDamage(Enemy enemy)
 		{
 			enemy.HealthPoints -= dmg;
+			isAlive = false;
 		}
 
 

@@ -13,12 +13,14 @@ namespace MobileGame.Managers
 		static int width;
 		static int height;
 		static ITile[,] map;
+		static Queue <Vector2> path; 
 		static int numberOfPlayers;
 		static int tileSize;
 		static int spread;
 		public static ITile[,] Map { get { return map; } set { map = value; } }
 		public static int TileSize { get { return tileSize; } }
 		public static int Spread { get { return spread; } }
+		public static Queue<Vector2> Path { get { return path; } set { path = value; } }
 
 
 		public static void GenerateMap(int desiredMapWidth, int desiredMapHeight, int mapTileSize, int mapSpread, int playersCount)
@@ -27,7 +29,9 @@ namespace MobileGame.Managers
 			spread = mapSpread;
 			width = desiredMapWidth;
 			height = desiredMapHeight;
-			map = MapGenerator.GenerateMap(desiredMapWidth, desiredMapHeight);
+			var mapDesc = MapGenerator.GenerateMap(desiredMapWidth, desiredMapHeight);
+			map = mapDesc.Map;
+			path = mapDesc.Path;
 			numberOfPlayers = playersCount;
 		}
 
@@ -61,29 +65,14 @@ namespace MobileGame.Managers
 		{
 			if( map == null )
 				return;
-			//var test = new List<ITile>();
-			//int y = 0;
-			//int x = 1;
 
-			//while( y < height )
-			//{
-			//	for( ; x <  width -1; x++ )
-			//	{
-			//		if( !IsPassable(x, y) )
-			//			continue;
-			//		if( !IsPassable(x - 1, y) || !IsPassable(x + 1, y) )
-			//			continue;
-			//		test.Add(map[x, y]);
-			//		y++;
-			//		x = x - 1;
-			//		break;
-			//	}
-			//}
-
-			//foreach( var tile in test )
-			//{
-			//	tile.Draw(sb);
-			//}
+			foreach(var vector2 in Path)
+			{
+				var temp = Map[0,0].Position;
+				Map[0, 0].Position = vector2;
+				Map[0, 0].Draw(sb);
+				Map[0, 0].Position = temp;
+			}
 
 			if( Keyboard.GetState().IsKeyDown(Keys.Space) )
 				return;
