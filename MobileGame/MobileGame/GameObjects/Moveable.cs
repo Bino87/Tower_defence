@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MobileGame.Drawable;
+using MobileGame.Description;
 using MobileGame.Interfaces;
 
 namespace MobileGame.GameObjects

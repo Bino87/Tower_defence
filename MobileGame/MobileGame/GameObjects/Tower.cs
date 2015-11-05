@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MobileGame.Description;
-using MobileGame.Drawable;
 using MobileGame.Enums;
-using MobileGame.GameObjects.Tiles;
+using MobileGame.GameObjects.Projectiles;
 using MobileGame.GameObjects.Towers;
 using MobileGame.Interfaces;
 using MobileGame.Managers;
@@ -38,15 +37,14 @@ namespace MobileGame.GameObjects
 
 		public void Shoot(Enemy enemy, List<Projectile> projectiles)
 		{
-			var projectile = new Projectile(2f, 4f, dmg, enemy.Position, 50f, RenderDesc.CreateDrawDescriptin<Ground>(position, new
-			Rectangle(0, 0, 8, 8), Color.Red));
+			var projectile = new Projectile(1f, 4f, dmg, enemy.Position, 350f, RenderDesc.CreateDrawDescriptin<TowerProjectile>(position));
 			projectiles.Add(projectile);
 			timeSinceLastShot = timeBetweenShoots;
 
-			var pd = new ParticleDesc(ParticleEffectType.Shoot, enemy.Position - position, 20)
+			var pd = new ParticleDesc(ParticleEffectType.Shoot, enemy.Position - position, 17)
 			{
 				Radius = MapManager.TileSize/2,
-				TextureIndex = TextureManager.GetTextureIndex(typeof(Projectile))
+				TextureIndex = TextureManager.GetTextureIndex(typeof(Particle))
 			};
 			ParticleEngine.AddEffect(this, pd);
 			rotation = (float)Math.Atan2(enemy.Position.Y - position.Y, enemy.Position.X - position.X);
@@ -71,8 +69,7 @@ namespace MobileGame.GameObjects
 			case PlayerStatus.BuildTowerLight:
 				var pos = MapManager.Map[coord.X, coord.Y].Position;
 				pos.X += MapManager.GetXaxisOffser(index);
-				return new TowerLight(1000f, 10, 1f, RenderDesc.CreateDrawDescriptin<TowerLight>(pos));
-				break;
+				return new TowerLight(200f, 10, 1f, RenderDesc.CreateDrawDescriptin<TowerLight>(pos));
 			case PlayerStatus.BuildTower2:
 				break;
 			case PlayerStatus.BuildTower3:

@@ -47,7 +47,6 @@ C:\Users\Kamil\Dropbox\skolan\AI\MobileGame\MobileGame\bin\Windows\Debug\Service
 C:\Users\Kamil\Dropbox\skolan\AI\MobileGame\MobileGame\bin\Windows\Debug\Content\sdfsf.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.exe
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MonoGame.Framework.dll
-C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Newtonsoft.Json.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\SharpDX.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\SharpDX.Direct3D11.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\SharpDX.DXGI.dll
@@ -60,13 +59,13 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Player\Player.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Towers\TowerLight.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.exe.config
-C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.pdb
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\FireSharp.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\FireSharp.Serialization.JsonNet.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\FireSharp.Serialization.ServiceStack.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Microsoft.Threading.Tasks.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Newtonsoft.Json.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\RestSharp.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\ServiceStack.Text.dll
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\System.Net.Http.Extensions.dll
@@ -97,3 +96,7 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csproj.App.config
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.exe
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.pdb
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Particles\TowerParticle.png
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Projectiles\TowerProjectile.png
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.pdb
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csprojResolveAssemblyReference.cache

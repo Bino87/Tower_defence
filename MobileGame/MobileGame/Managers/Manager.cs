@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MobileGame.Drawable;
+using MobileGame.Description;
+using MobileGame.Extensions;
 using MobileGame.GameObjects.Player;
 
 namespace MobileGame.Managers
@@ -35,11 +36,12 @@ namespace MobileGame.Managers
 		{
 			ParticleEngine.Update(gt);
 
-			foreach( var player in Players )
+			foreach( var player in players )
 				player.Update(gt);
 
-			//if( Keyboard.GetState().IsKeyDown(Keys.P) )
-			//	MapManager.Map = MapGenerator.GenerateMap(10, 20);
+			if(SpawnManager.SpawnEnemy(gt))
+				foreach(var player in players)
+					player.SpawnEnemy(player.GetRandomEnemyType());
 
 			ParticleEngine.CleanUpList();
 		}

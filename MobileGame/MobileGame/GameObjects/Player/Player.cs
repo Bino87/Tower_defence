@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MobileGame.Drawable;
+using MobileGame.Description;
 using MobileGame.Enums;
 using MobileGame.EventArgs;
 using MobileGame.GameObjects.Enemies;
@@ -68,18 +69,40 @@ namespace MobileGame.GameObjects.Player
 			position = new Vector2(MapManager.GetXaxisOffser(index) + 50f, 200f);
 			CreateFirebaseSlot();
 			TakeDamageEvent += OnTakeDamage;
-			var em = CreateEnemy<EnemyLight>();
-			enemies.Add(em);
-			 em = CreateEnemy<EnemyMedium>();
-			enemies.Add(em);
-			em = CreateEnemy<EnemyHeavy>();
-			enemies.Add(em);
 
-			var tower = Tower.GetTowerInstance(position, index, PlayerStatus.BuildTowerLight);
-			if( tower != null )
-				towers.Add(tower);
+			/*for(int i = 0; i < 10; i++) //Debugger
+			{
+				for(int j = 0; j < 20; j++)
+				{
+					var tower = Tower.GetTowerInstance(new Vector2(i*MapManager.TileSize + MapManager.GetXaxisOffser(index), j*MapManager.TileSize), index, PlayerStatus.BuildTowerLight);
+					towers.Add(tower);
+				}
+			}*/
 		}
 
+
+		public void SpawnEnemy(EnemyType et)
+		{
+			Enemy enemy = null;
+			switch( et )
+			{
+			case EnemyType.Light:
+				enemy = CreateEnemy<EnemyLight>();
+				break;
+			case EnemyType.Medium:
+				enemy = CreateEnemy<EnemyMedium>();
+				break;
+			case EnemyType.Heavy:
+				enemy = CreateEnemy<EnemyHeavy>();
+				break;
+
+			}
+			if( enemy == null )
+				return;
+
+			enemies.Add(enemy);
+
+		}
 
 		Enemy CreateEnemy<TEnemyType>() where TEnemyType: Enemy
 		{
@@ -121,7 +144,15 @@ namespace MobileGame.GameObjects.Player
 				gold -= 50;
 				var tower = Tower.GetTowerInstance(position, index, pStatus);
 				if( tower != null )
+				{
+					if( towers.Any(t => t.Position == tower.Position) )
+					{
+						playerStatus = PlayerStatus.Failed;
+						cm.Client.UpdateAsync(myPath, Manager.Players[index]);
+						return;
+					}
 					towers.Add(tower);
+				}
 			}
 			else
 			{
@@ -218,7 +249,9 @@ namespace MobileGame.GameObjects.Player
 
 		public void Update(GameTime gt)
 		{
-			ParticleEngine.Update(gt);
+			try
+			{
+
 			UpdateLists(gt);
 
 			TowerShoot();
@@ -226,6 +259,11 @@ namespace MobileGame.GameObjects.Player
 			ProjectileCollide();
 
 			CleanUpLists();
+			}
+			catch(Exception)
+			{
+				// ignored
+			}
 		}
 
 		public override void Draw(SpriteBatch sb)
@@ -233,17 +271,23 @@ namespace MobileGame.GameObjects.Player
 			var coord = MapManager.GetTileIndexFromPosition(position, index);
 			var pos = MapManager.Map[coord.X, coord.Y].Position;
 			pos.X += MapManager.GetXaxisOffser(index);
-			ITile temp = new Ground(RenderDesc.CreateDrawDescriptin<Ground>(pos, color : Color.Pink));
+			ITile temp = new Ground(RenderDesc.CreateDrawDescriptin<Ground>(pos, color : Color.Pink * 0.3f));
+			try
+			{
 
-			temp.Draw(sb);
-			foreach( var tower in towers )
-				tower.Draw(sb);
-			foreach( var enemy in enemies )
-				enemy.Draw(sb);
-			foreach( var projectile in projectiles )
-				projectile.Draw(sb);
-			ParticleEngine.Draw(sb);
-			//base.Draw(sb);
+				temp.Draw(sb);
+				foreach( var tower in towers )
+					tower.Draw(sb);
+				foreach( var enemy in enemies )
+					enemy.Draw(sb);
+				foreach( var projectile in projectiles )
+					projectile.Draw(sb);
+				base.Draw(sb);
+			}
+			catch(Exception)
+			{
+				// ignored
+			}
 		}
 
 	}

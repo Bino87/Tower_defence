@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MobileGame.Drawable;
+using MobileGame.Description;
 using MobileGame.Interfaces;
 
 namespace MobileGame.GameObjects
@@ -8,7 +8,7 @@ namespace MobileGame.GameObjects
 	public class Projectile : Moveable, IProjectile
 	{
 		float lifeTime;
-		float radiusSqrt;
+		readonly float radiusSqrt;
 		readonly int dmg;
 		public Projectile(float  lifeTime, float radius, int dmg, Vector2 destiantion,float speed,  RenderDesc renderDesc)
 			: base(destiantion, speed, renderDesc)

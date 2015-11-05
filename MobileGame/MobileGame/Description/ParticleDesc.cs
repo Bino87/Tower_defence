@@ -1,5 +1,5 @@
-﻿using MobileGame.Enums;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using MobileGame.Enums;
 
 namespace MobileGame.Description
 {

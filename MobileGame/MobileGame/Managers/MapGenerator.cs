@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
-using MobileGame.Drawable;
+using MobileGame.Description;
 using MobileGame.GameObjects.Tiles;
 using MobileGame.Interfaces;
 using MobileGame.Structs;
@@ -63,8 +63,6 @@ namespace MobileGame.Managers
 				openList.Add(closedList[closedList.Count - 1]);
 			//Debug Do not remove!
 			//WriteDebug(boolMap);
-			openList = null;
-			closedList = null;
 
 			return PopulateTileMap(width, height, boolMap, mapDesc);
 		}
@@ -86,12 +84,11 @@ namespace MobileGame.Managers
 		{
 			var map = new ITile[width, height];
 			Vector2 offset = new Vector2(MapManager.TileSize /2.0f);
-			Vector2 vec;
 			for( int x = 0; x < width; x++ )
 			{
 				for( int y = 0; y < height; y++ )
 				{
-					vec = new Vector2(x * 30, y * 30) + offset;
+					var vec = new Vector2(x * 30, y * 30) + offset;
 					map[x, y] = boolMap[x, y]
 						? (ITile)
 						new EnemyPath(RenderDesc.CreateDrawDescriptin<EnemyPath>(vec)) 

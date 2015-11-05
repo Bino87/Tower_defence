@@ -55,7 +55,7 @@ namespace MobileGame.Managers
 			switch( folders[index] )
 			{
 			case "Game":
-				GetPlayerIndex(folders, data, oldData, ++index);
+				GetPlayerIndex(folders, data, ++index);
 				break;
 			case "Lobby":
 				OnLobbyChange(folders, data, oldData);
@@ -71,7 +71,6 @@ namespace MobileGame.Managers
 
 		void OnGameStateChange(string[] folders, string data, string oldData, int i)
 		{
-
 		}
 
 		void OnSettingsChange(string[] folders, string data, string oldData, int index)
@@ -84,7 +83,7 @@ namespace MobileGame.Managers
 
 		}
 
-		void GetPlayerIndex(string[] folders, string data, string oldData, int index)
+		void GetPlayerIndex(string[] folders, string data, int index)
 		{
 			if( folders.Length < 3 )
 				return;
@@ -94,11 +93,11 @@ namespace MobileGame.Managers
 				if( !int.TryParse(folders[index], out pIndex) )
 					return;
 				++index;
-				GetPlayersVariable(folders, data, oldData, Manager.Players[pIndex], index);
+				GetPlayersVariable(folders, data, Manager.Players[pIndex], index);
 			}
 		}
 
-		void GetPlayersVariable(string[] folders, string data, string oldData, Player player, int index)
+		void GetPlayersVariable(string[] folders, string data, Player player, int index)
 		{
 			switch( folders[index] )
 			{
@@ -117,7 +116,6 @@ namespace MobileGame.Managers
 
 			case "Status":
 				int intData;
-				int oldIntData;
 				if( !int.TryParse(data, out intData) )
 					break;
 				if( intData == 0 )

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MobileGame.Managers;
@@ -10,7 +11,7 @@ namespace MobileGame
 	/// </summary>
 	public class Game1: Game
 	{
-		GraphicsDeviceManager graphics;
+		readonly GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Manager m;
 
@@ -50,8 +51,11 @@ namespace MobileGame
 
 		protected override void Update(GameTime gameTime)
 		{
-			if( GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape) )
-				Exit();
+			if(GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+			   Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
+				Environment.Exit(Environment.ExitCode);
+			}
 
 			m.Update(gameTime);
 			base.Update(gameTime);

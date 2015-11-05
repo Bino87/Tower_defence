@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MobileGame.Drawable;
+using MobileGame.Description;
 
 namespace MobileGame.GameObjects.Enemies
 {

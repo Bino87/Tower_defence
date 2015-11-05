@@ -47,7 +47,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Description\ParticleDesc.cs" />
-    <Compile Include="Drawable\RenderDesc.cs" />
+    <Compile Include="Description\RenderDesc.cs" />
+    <Compile Include="Enums\EnemyType.cs" />
     <Compile Include="Enums\ParticleEffectType.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="EventArgs\BuildTowerEventArgs.cs" />
@@ -57,7 +58,9 @@
     <Compile Include="GameObjects\Enemies\EnemyLight.cs" />
     <Compile Include="GameObjects\Enemies\EnemyMedium.cs" />
     <Compile Include="GameObjects\Moveable.cs" />
+    <Compile Include="GameObjects\Particles\TowerParticle.cs" />
     <Compile Include="GameObjects\Player\Player.cs" />
+    <Compile Include="GameObjects\Projectiles\TowerProjectile.cs" />
     <Compile Include="GameObjects\Renderable.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
@@ -144,6 +147,12 @@
     <Content Include="Content\Enemies\EnemyLight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Particles\TowerParticle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Projectiles\TowerProjectile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Tiles\Ground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -166,10 +175,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Particles\" />
-    <Folder Include="Content\Projectiles\" />
-    <Folder Include="GameObjects\Particles\" />
-    <Folder Include="GameObjects\Projectiles\" />
+    <Folder Include="Drawable\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

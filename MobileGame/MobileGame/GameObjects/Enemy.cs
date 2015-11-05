@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MobileGame.Drawable;
-using MobileGame.Enums;
+using MobileGame.Description;
 using MobileGame.Interfaces;
 using MobileGame.Managers;
 

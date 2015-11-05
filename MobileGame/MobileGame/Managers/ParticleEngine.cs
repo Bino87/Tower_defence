@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Description;
-using MobileGame.Drawable;
 using MobileGame.Enums;
-using MobileGame.GameObjects;
 using MobileGame.Extensions;
+using MobileGame.GameObjects;
+using MobileGame.GameObjects.Particles;
 using MobileGame.GameObjects.Tiles;
 
 namespace MobileGame.Managers
@@ -35,37 +35,17 @@ namespace MobileGame.Managers
 			}
 		}
 
-
 		static void CreateEscapeParticleEffect<T>(T enemy, ParticleDesc pd) where T: Enemy
 		{
-
-		}
-
-
-		static void CreateDieParticleEffect<T>(T enemy, ParticleDesc pd) where T: Enemy
-		{
-
-		}
-
-
-		static void CreateExplodeParticleEffect<T>(T projectile, ParticleDesc pd) where T: Projectile
-		{
-
-		}
-
-
-		static void CreateShootParticleEffect<T>(T tower, ParticleDesc pd) where T: Tower
-		{
-			ParticleEffect particleEffect = new ParticleEffect();
-			for(int i = 0; i < pd.Amount; i++)
+			var particleEffect = new ParticleEffect();
+			for( var i = 0; i < pd.Amount; i++ )
 			{
-				var position = pd.Direction * pd.Radius + tower.Position;
-				var rendDesc = RenderDesc.CreateDrawDescriptin <Ground>(position,new Rectangle(0,0,2,2), color: Color.Pink);
-				var lifetime = rand.NextFloat(.1f, 1);
-				var speed = rand.NextFloat(5, 50);
+				var position = pd.Direction * pd.Radius + enemy.Position;
+				var rendDesc = RenderDesc.CreateDrawDescriptin<Ground>(position, new Rectangle(0, 0, 2, 2), Color.Pink);
+				var lifetime = rand.NextFloat(.05f, .3f);
+				var speed = rand.NextFloat(250, 500);
 				var angle = rand.NextFloat(-5, 6).ToRadians();
 				var direction = pd.Direction.RotateVector(angle);
-
 				var particle = new Particle(lifetime, speed, direction, rendDesc);
 
 				particleEffect.Add(particle);
@@ -73,6 +53,59 @@ namespace MobileGame.Managers
 			particleEffects.Add(particleEffect);
 		}
 
+		static void CreateDieParticleEffect<T>(T enemy, ParticleDesc pd) where T: Enemy
+		{
+			var particleEffect = new ParticleEffect();
+			for( var i = 0; i < pd.Amount; i++ )
+			{
+				var position = pd.Direction * pd.Radius + enemy.Position;
+				var rendDesc = RenderDesc.CreateDrawDescriptin<Ground>(position, new Rectangle(0, 0, 2, 2), Color.Pink);
+				var lifetime = rand.NextFloat(.05f, .3f);
+				var speed = rand.NextFloat(250, 500);
+				var angle = rand.NextFloat(-5, 6).ToRadians();
+				var direction = pd.Direction.RotateVector(angle);
+				var particle = new Particle(lifetime, speed, direction, rendDesc);
+
+				particleEffect.Add(particle);
+			}
+			particleEffects.Add(particleEffect);
+		}
+
+		static void CreateExplodeParticleEffect<T>(T projectile, ParticleDesc pd) where T: Projectile
+		{
+			var particleEffect = new ParticleEffect();
+			for( var i = 0; i < pd.Amount; i++ )
+			{
+				var position = pd.Direction * pd.Radius + projectile.Position;
+				var rendDesc = RenderDesc.CreateDrawDescriptin<Ground>(position, new Rectangle(0, 0, 2, 2), Color.Pink);
+				var lifetime = rand.NextFloat(.1f, 1);
+				var speed = rand.NextFloat(5, 50);
+				var angle = rand.NextFloat(-5, 6).ToRadians();
+				var direction = pd.Direction.RotateVector(angle);
+				var particle = new Particle(lifetime, speed, direction, rendDesc);
+
+				particleEffect.Add(particle);
+			}
+			particleEffects.Add(particleEffect);
+		}
+
+		static void CreateShootParticleEffect<T>(T tower, ParticleDesc pd) where T: Tower
+		{
+			var particleEffect = new ParticleEffect();
+			for(var i = 0; i < pd.Amount; i++)
+			{
+				var position = pd.Direction * pd.Radius + tower.Position;
+				var rendDesc = RenderDesc.CreateDrawDescriptin <TowerParticle>(position);
+				var lifetime = rand.NextFloat(.05f, .3f);
+				var speed = rand.NextFloat(50, 150);
+				var angle = rand.NextFloat(-5, 6).ToRadians();
+				var direction = pd.Direction.RotateVector(angle);
+				var particle = new Particle(lifetime, speed, direction, rendDesc);
+
+				particleEffect.Add(particle);
+			}
+			particleEffects.Add(particleEffect);
+		}
 
 		public static void Update(GameTime gt)
 		{
@@ -82,12 +115,10 @@ namespace MobileGame.Managers
 			}
 		}
 
-
 		public static void CleanUpList()
 		{
 			particleEffects = particleEffects.FindAll(pe => !pe.IsEmpty());
 		}
-
 
 		public static void Draw(SpriteBatch sb)
 		{

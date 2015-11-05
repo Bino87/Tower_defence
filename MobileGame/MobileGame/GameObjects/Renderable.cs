@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MobileGame.Drawable;
+using MobileGame.Description;
 using MobileGame.Interfaces;
 using MobileGame.Managers;
 
@@ -12,7 +12,7 @@ namespace MobileGame.GameObjects
 		readonly int textureIndex;
 		protected Vector2 position;
 		readonly Vector2 origin;
-		readonly Vector2 scale;
+		protected Vector2 scale;
 		readonly SpriteEffects spriteEffect;
 		readonly Rectangle boundingBox;
 		readonly Color color;
