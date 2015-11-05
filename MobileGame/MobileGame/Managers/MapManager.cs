@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +14,7 @@ namespace MobileGame.Managers
 		static int width;
 		static int height;
 		static ITile[,] map;
-		static Queue <Vector2> path; 
+		static Queue <Vector2> path;
 		static int numberOfPlayers;
 		static int tileSize;
 		static int spread;
@@ -49,30 +50,19 @@ namespace MobileGame.Managers
 			return map[x, y].CanPlaceTower();
 		}
 
-		static bool IsPassable(int x, int y)
-		{
-			if( map == null )
-				return false;
-			if( x < 0 || x >= width )
-				return false;
-			if( y < 0 || y >= height )
-				return false;
-
-			return map[x, y].CanPlaceTower();
-		}
-
 		public static void Draw(SpriteBatch sb)
 		{
 			if( map == null )
 				return;
 
-			foreach(var vector2 in Path)
-			{
-				var temp = Map[0,0].Position;
-				Map[0, 0].Position = vector2;
-				Map[0, 0].Draw(sb);
-				Map[0, 0].Position = temp;
-			}
+			if( Keyboard.GetState().IsKeyDown(Keys.Space) )
+				foreach( var vector2 in Path )
+				{
+					var temp = Map[0, 0].Position;
+					Map[0, 0].Position = vector2;
+					Map[0, 0].Draw(sb);
+					Map[0, 0].Position = temp;
+				}
 
 			if( Keyboard.GetState().IsKeyDown(Keys.Space) )
 				return;
@@ -100,24 +90,18 @@ namespace MobileGame.Managers
 			return indexSpread + indexOffset;
 		}
 
-
 		public static Coord GetTileIndexFromPosition(Vector2 position, int index)
 		{
-			int x = (int)(position.X - GetXaxisOffser(index));
-			int y = (int)(position.Y);
+			var x = (int)(position.X - GetXaxisOffser(index));
+			var y = (int)(position.Y);
 			x -= (x % tileSize);
 			y -= y % tileSize;
 			x /= tileSize;
 			y /= tileSize;
 
-			if(x < 0)
-				x = 0;
-			if(x >= width)
-				x = width - 1;
-			if(y < 0)
-				y = 0;
-			if(y >= height)
-				y = height - 1;
+			x = Math.Min(Math.Max(0, x), width - 1);
+			y = Math.Min(Math.Max(0, y), height - 1);
+			
 			var coord = new Coord { X = x, Y =y };
 
 			return coord;

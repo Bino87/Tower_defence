@@ -74,6 +74,10 @@ namespace MobileGame.GameObjects.Player
 			enemies.Add(em);
 			em = CreateEnemy<EnemyHeavy>();
 			enemies.Add(em);
+
+			var tower = Tower.GetTowerInstance(position, index, PlayerStatus.BuildTowerLight);
+			if( tower != null )
+				towers.Add(tower);
 		}
 
 
@@ -214,6 +218,7 @@ namespace MobileGame.GameObjects.Player
 
 		public void Update(GameTime gt)
 		{
+			ParticleEngine.Update(gt);
 			UpdateLists(gt);
 
 			TowerShoot();
@@ -237,7 +242,8 @@ namespace MobileGame.GameObjects.Player
 				enemy.Draw(sb);
 			foreach( var projectile in projectiles )
 				projectile.Draw(sb);
-			base.Draw(sb);
+			ParticleEngine.Draw(sb);
+			//base.Draw(sb);
 		}
 
 	}

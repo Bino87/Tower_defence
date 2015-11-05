@@ -13,6 +13,10 @@ namespace MobileGame.Managers
 	public class ClientManager
 	{
 		IFirebaseClient client;
+
+		public IFirebaseClient Client { get { return client; } set { client = value; } }
+
+
 		public ClientManager(string basepath, string authSecret = null)
 		{
 			IFirebaseConfig config = new FirebaseConfig
@@ -26,14 +30,11 @@ namespace MobileGame.Managers
 		}
 
 
-		public IFirebaseClient Client { get { return client; } set { client = value; } }
-
 
 		async void Listen()
 		{
 			await client.OnAsync("", OnValueAdded, OnValueChanged);
 		}
-
 
 		void OnValueAdded(object sender, ValueAddedEventArgs args)
 		{
@@ -62,21 +63,26 @@ namespace MobileGame.Managers
 			case "Settings":
 				OnSettingsChange(folders, data, oldData, ++index);
 				break;
+			case "GameState":
+				OnGameStateChange(folders, data, oldData, ++index);
+				break;
 			}
 		}
 
+		void OnGameStateChange(string[] folders, string data, string oldData, int i)
+		{
+
+		}
 
 		void OnSettingsChange(string[] folders, string data, string oldData, int index)
 		{
 
 		}
 
-
 		void OnLobbyChange(string[] folders, string data, string oldData)
 		{
 
 		}
-
 
 		void GetPlayerIndex(string[] folders, string data, string oldData, int index)
 		{
@@ -91,7 +97,6 @@ namespace MobileGame.Managers
 				GetPlayersVariable(folders, data, oldData, Manager.Players[pIndex], index);
 			}
 		}
-
 
 		void GetPlayersVariable(string[] folders, string data, string oldData, Player player, int index)
 		{

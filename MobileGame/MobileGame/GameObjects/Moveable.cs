@@ -18,8 +18,6 @@ namespace MobileGame.GameObjects
 		}
 
 
-
-
 		public virtual void Update(GameTime gt)
 		{
 			position += direction * speed * (float)gt.ElapsedGameTime.TotalSeconds;

@@ -8,19 +8,6 @@ namespace MobileGame.GameObjects
 	{
 		List <Particle> partices;
 
-		public ParticleEffect(int amount)
-		{
-			partices = new List<Particle>();
-
-			// ReSharper disable once EmptyForStatement
-			for( int i = 0; i < amount; i++ )
-			{
-				// var particle = new Particle...
-				//particles.Add(particle);
-			}
-		}
-
-
 
 		public void Update(GameTime gt)
 		{
@@ -42,6 +29,14 @@ namespace MobileGame.GameObjects
 			{
 				particle.Draw(sb);
 			}
+		}
+
+
+		public void Add(Particle particle)
+		{
+			if(partices == null)
+				partices = new List <Particle>();
+			partices.Add(particle);
 		}
 
 		public bool IsEmpty()

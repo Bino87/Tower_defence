@@ -42,17 +42,8 @@ namespace MobileGame.GameObjects
 		{
 			if( (destination - position).LengthSquared() < Vector2.One.LengthSquared() )
 			{
-				position = destination;
-				if( path.Count == 0 )
-				{
-					DealDamage();
+				if(MoveToNextNode())
 					return;
-				}
-				destination = path.Dequeue();
-				destination.X += offset;
-				direction =  destination - position;
-				direction.Normalize();
-				rotation = (float)Math.Atan2(direction.Y, direction.X) - MathHelper.PiOver2;
 			}
 			else
 				base.Update(gt);
@@ -60,6 +51,26 @@ namespace MobileGame.GameObjects
 				Death();
 		}
 
+		bool MoveToNextNode()
+		{
+			position = destination;
+			if(path.Count == 0)
+			{
+				DealDamage();
+				return true;
+			}
+			destination = path.Dequeue();
+			destination.X += offset;
+			direction = destination - position;
+			direction.Normalize();
+			rotation = Rotation();
+			return false;
+		}
+
+		float Rotation()
+		{
+			return (float) Math.Atan2(direction.Y, direction.X) - MathHelper.PiOver2; // Pi/2 needed cos of texture rotation could be fixed by rotating texture 90^ clockwise.
+		}
 
 		void DealDamage()
 		{
@@ -67,12 +78,9 @@ namespace MobileGame.GameObjects
 			Death();
 		}
 
-
-		public void Death()
+		public virtual void Death()
 		{
 			isAlive = false;
-			//ParticleEngine.AddEffect <typeof(this)>(ParticleEffectType.Die, position);
 		}
 	}
-
 }

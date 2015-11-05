@@ -46,11 +46,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Description\ParticleDesc.cs" />
     <Compile Include="Drawable\RenderDesc.cs" />
     <Compile Include="Enums\ParticleEffectType.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="EventArgs\BuildTowerEventArgs.cs" />
     <Compile Include="EventArgs\TakeDamageEventArgs.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="GameObjects\Enemies\EnemyHeavy.cs" />
     <Compile Include="GameObjects\Enemies\EnemyLight.cs" />
     <Compile Include="GameObjects\Enemies\EnemyMedium.cs" />

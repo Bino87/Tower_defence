@@ -4,15 +4,17 @@ using MobileGame.Interfaces;
 
 namespace MobileGame.GameObjects
 {
-	abstract class Particle: Moveable, IParticle
+
+	public  class Particle: Moveable, IParticle
 	{
 		float lifeTime;
 
 
-		protected Particle(float lifeTime, float speed, Vector2 direction, RenderDesc renderDesc)
+		public Particle(float lifeTime, float speed, Vector2 direction, RenderDesc renderDesc)
 			: base(direction, speed, renderDesc)
 		{
 			this.lifeTime = lifeTime;
+			this.direction = direction;
 		}
 
 		public override void Update(GameTime gt)
