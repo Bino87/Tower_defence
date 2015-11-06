@@ -52,6 +52,7 @@ namespace MobileGame.Managers
 			MapManager.Draw(sb);
 
 			ParticleEngine.Draw(sb);
+			
 
 			foreach( var player in Players )
 			{

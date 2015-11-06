@@ -112,11 +112,11 @@ namespace MobileGame.GameObjects.Player
 			var dest = Vector2.Zero;
 
 			if( type == typeof(EnemyLight) )
-				return new EnemyLight(MapManager.Path, index, 100, dest, 100, RenderDesc.CreateDrawDescriptin<EnemyLight>(pos));
+				return new EnemyLight(MapManager.Path, index, 35, dest, 100, RenderDesc.CreateDrawDescriptin<EnemyLight>(pos));
 			if( type == typeof(EnemyMedium) )
-				return new EnemyMedium(MapManager.Path, index, 200, dest, 75, RenderDesc.CreateDrawDescriptin<EnemyMedium>(pos));
+				return new EnemyMedium(MapManager.Path, index, 60, dest, 75, RenderDesc.CreateDrawDescriptin<EnemyMedium>(pos));
 			if( type == typeof(EnemyHeavy) )
-				return new EnemyMedium(MapManager.Path, index, 400, dest, 50, RenderDesc.CreateDrawDescriptin<EnemyHeavy>(pos));
+				return new EnemyMedium(MapManager.Path, index, 100, dest, 50, RenderDesc.CreateDrawDescriptin<EnemyHeavy>(pos));
 
 			return null;
 		}
@@ -205,18 +205,19 @@ namespace MobileGame.GameObjects.Player
 
 		void TowerShoot()
 		{
-			foreach( var tower in towers )
+			for(int i = 0; i < towers.Count; i++)
 			{
-				if( !tower.IsAlive )
+				var tower = towers[i];
+				if(!tower.IsAlive)
 					continue;
-				if( !tower.CanShoot() )
+				if(!tower.CanShoot())
 					continue;
-				foreach( var enemy in enemies )
+				foreach(var enemy in enemies)
 				{
-					if( !enemy.IsAlive )
+					if(!enemy.IsAlive)
 						continue;
 
-					if( !tower.IsInRange(enemy) )
+					if(!tower.IsInRange(enemy))
 						continue;
 
 					tower.Shoot(enemy, projectiles);
@@ -224,6 +225,7 @@ namespace MobileGame.GameObjects.Player
 				}
 			}
 		}
+
 
 		void CleanUpLists()
 		{
@@ -236,8 +238,10 @@ namespace MobileGame.GameObjects.Player
 		{
 			foreach( var enemy in enemies )
 				enemy.Update(gt);
-			foreach( var tower in towers )
-				tower.Update(gt);
+			for(int i = 0; i < towers.Count; i++)
+			{
+				towers[i].Update(gt);
+			}
 			foreach( var projectile in projectiles )
 				projectile.Update(gt);
 		}
@@ -276,8 +280,10 @@ namespace MobileGame.GameObjects.Player
 			{
 
 				temp.Draw(sb);
-				foreach( var tower in towers )
-					tower.Draw(sb);
+				for(int i = 0; i < towers.Count; i++)
+				{
+					towers[i].Draw(sb);
+				}
 				foreach( var enemy in enemies )
 					enemy.Draw(sb);
 				foreach( var projectile in projectiles )
@@ -290,5 +296,11 @@ namespace MobileGame.GameObjects.Player
 			}
 		}
 
+		public void DrawString(SpriteFont sf, SpriteBatch spriteBatch)
+		{
+			spriteBatch.DrawString(sf,"Enemies: " + enemies.Count,new Vector2(MapManager.GetXaxisOffser(index),sf.LineSpacing*0),Color.White );
+			spriteBatch.DrawString(sf, "Towers: " + towers.Count, new Vector2(MapManager.GetXaxisOffser(index), sf.LineSpacing), Color.White);
+			spriteBatch.DrawString(sf, "Projectiles: " + projectiles.Count, new Vector2(MapManager.GetXaxisOffser(index), sf.LineSpacing*2), Color.White);
+		}
 	}
 }

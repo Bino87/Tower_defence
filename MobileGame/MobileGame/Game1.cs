@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,6 +15,25 @@ namespace MobileGame
 		readonly GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Manager m;
+
+		SpriteFont sf;
+		List <Timer> timers = new List <Timer>(); 
+		class Timer
+		{
+			public double time;
+
+
+			public Timer()
+			{
+				time = 1;
+			}
+
+
+			public void Update(GameTime gt)
+			{
+				time -= gt.ElapsedGameTime.TotalSeconds;
+			}
+		}
 
 		public Game1()
 		{
@@ -41,6 +61,7 @@ namespace MobileGame
 			graphics.PreferredBackBufferWidth = 1300;
 			graphics.PreferredBackBufferHeight = 700;
 			graphics.ApplyChanges();
+			sf = Content.Load <SpriteFont>("MyFont");
 			// TODO: use this.Content to load your game content here
 		}
 		
@@ -57,7 +78,7 @@ namespace MobileGame
 				Environment.Exit(Environment.ExitCode);
 			}
 
-			m.Update(gameTime);
+			m.Update(gameTime); 
 			base.Update(gameTime);
 		}
 
@@ -71,6 +92,11 @@ namespace MobileGame
 
 			m.Draw(spriteBatch);
 
+			foreach(var player in Manager.Players)
+			{
+				player.DrawString(sf, spriteBatch);
+			}
+			ParticleEngine.DrawString(sf, spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

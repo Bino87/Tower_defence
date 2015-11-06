@@ -8,6 +8,10 @@ namespace MobileGame.GameObjects
 	{
 		List <Particle> partices;
 
+		public int Count
+		{
+			get { return partices.Count; }
+		}
 
 		public void Update(GameTime gt)
 		{

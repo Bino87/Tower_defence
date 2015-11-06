@@ -69,7 +69,7 @@ namespace MobileGame.GameObjects
 			case PlayerStatus.BuildTowerLight:
 				var pos = MapManager.Map[coord.X, coord.Y].Position;
 				pos.X += MapManager.GetXaxisOffser(index);
-				return new TowerLight(200f, 10, 1f, RenderDesc.CreateDrawDescriptin<TowerLight>(pos));
+				return new TowerLight(150f, 10, 1f, RenderDesc.CreateDrawDescriptin<TowerLight>(pos));
 			case PlayerStatus.BuildTower2:
 				break;
 			case PlayerStatus.BuildTower3:

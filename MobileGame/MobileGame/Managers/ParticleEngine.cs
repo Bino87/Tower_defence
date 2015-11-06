@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MobileGame.Description;
@@ -126,6 +127,14 @@ namespace MobileGame.Managers
 			{
 				particleEffect.Draw(sb);
 			}
+		}
+
+
+		public static void DrawString(SpriteFont sf, SpriteBatch spriteBatch)
+		{
+			int temp = particleEffects.Sum(particleEffect => particleEffect.Count);
+
+			spriteBatch.DrawString(sf,"particles Count: " + temp, new Vector2(0,sf.LineSpacing*3),Color.White );
 		}
 	}
 

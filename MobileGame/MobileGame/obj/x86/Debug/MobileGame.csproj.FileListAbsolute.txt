@@ -100,3 +100,4 @@ C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\Projectiles\TowerProjectile.png
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\MobileGame.pdb
 C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\obj\x86\Debug\MobileGame.csprojResolveAssemblyReference.cache
+C:\Users\Kamil\Documents\GitHub\Tower_defence\MobileGame\MobileGame\bin\Windows\Debug\Content\MyFont.xnb
